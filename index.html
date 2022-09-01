@@ -30,7 +30,7 @@
     // 创建图片对象
     var heartImage = new Image();
     heartImage.src = 'img/heart.svg';
-    var num = 150;
+    var num = 100;
 
     init();
 
@@ -76,13 +76,13 @@
     function getText() {
       var val = Math.random() * 10;
       if (val > 1 && val <= 3) {
-        return 'always';
+        return '';
       } else if (val > 3 && val <= 5) {
-        return '李月';
+        return '';
       } else if (val > 5 && val <= 8) {
-        return '和我在一起吧';
+        return '';
       } else {
-        return 'I Love You';
+        return '';
       }
     }
 
@@ -151,7 +151,7 @@
       }
 
       // 放大
-      this.scale += (this.targetScale - this.scale) * .1;
+      this.scale += (this.targetScale - this.scale) * .2;
       this.height = this.scale * this.initialH;
       this.width = this.height * 1.4;
 
