@@ -1,0 +1,1281 @@
+/*
+文档编写：李伟诚
+最后修改日期：2003/12/25 09:55
+****************使用方法************************
+<SCRIPT LANGUAGE="JavaScript" src="check.js"></SCRIPT>
+
+****************函数列表和函数定义************************
+//function compareAllCostAndApplyWithLimit(allpri,thispri,msg,pri,prilimit)校验经费总额和申请额是否满足“同一项支出不得在申请资助经费和自筹经费中申报”原则
+//function compareTwoValues(firstObject,seconendObject,msg)比较两个对象的值是否相等，调用示例：if(!compareTwoValues(form1.p_psw,form1.p_psw_confirm,"请确认两次输入的密码相同！")){return;}
+//function check_numdot(vv){		//可以带小数点的 浮点数
+//function check_numdotformat(vv){		//可以带小数点 //2003-11-12 限制位数2位 并且输出格式化成2位
+function check_numdotformatXieGang(vv){		//可以带小数点 //2003-11-12 限制位数2位 并且输出格式化成2位 允许"/"
+//function check_num(vv){		//不带小数点 纯整数
+//function check_year(vv){	//校验正确的 4位数 的数字 或者 年份
+//function check_post(vv){	//校验6为数值  邮政编码校验
+//function check_email(vv){	//校验正确的EMAIL
+//function check_date(vv){	//校验正确的 日期 格式为  1900-1-1 或者 1900/1/1
+//function check_positiveInteger(vv){		//判断是否是正整数 >=0 没有小数点
+//function check_web(vv){	//校验正确的网址
+//function check_strlen(vv,len){		//校验长度
+//function check_null(vv){		//不能为空值
+//function check_fullinfo(){//校验是否本表单域中有空值
+//function check_isCHN(vv){		//检查是否填写的字符中带中文  并以中文结尾
+//function check_confirm(vv,fname){		//确认是否作此操作 用于button类型	写法 check_confirm(this) 或者 check_confirm(this,表单名字)
+//function check_numdotdefine(vv,length)//校验带指定位数小数的数值 add by cjl 2007-6-18
+//function check_birthYYYYMM(vv){	//校验正确的 日期 格式为  1900-1-1 或者 1900/1/1
+************************
+除最后一个函数使用 ONCLICK 
+其他建议使用 ONBLUR
+************************
+
+
+
+*/
+
+
+function check_numdot(vv){		//可以带小数点
+	//var pattern_numdot=/^([-])*\d{0,}([.]{0,1})(\d{0,})$/;
+	//var pattern_numdot=/^([-]{0,1})?(\d{1,}[.]{1})?(\d{1,})$/;
+	var pattern_numdot=/^([-]{0,1})?((\d{1}|([1-9]{1}\d{1,}))[.]{1})?(\d{1,})$/;//2003-12-25改进
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_numdot.test(xx)){
+			if (xx!="/"){			
+				alert ("请填写数值！");
+				vv.value="";vv.focus();return;
+			}
+		}
+	}
+}
+	
+	
+/*
+校验浮点型数值
+vv	被校验对象
+vlength	小数位数长度
+isNegative	是否数值 允许负数    true 表示 执行  /  false 或不传参数 表示 强制数值校验>=0
+*/	
+function check_numdotformat(vv,vlength,isNegative){		//可以带小数点 //2003-11-12 限制位数2位 并且输出格式化成2位
+	var length = 1 // 默认小数位数是1
+	if(vlength!=null)
+		length = vlength
+	var pattern_numdot=/^((\d{1}|([1-9]{1}\d{1,}))[.]{1})?(\d{1,})$/;	
+	
+	if (isNegative!=null && isNegative)	{
+		pattern_numdot=/^([-]{0,1})?((\d{1}|([1-9]{1}\d{1,}))[.]{1})?(\d{1,})$/;
+	}
+	
+	xx=vv.value;
+	if (""!=xx){
+		if (pattern_numdot.test(xx)){
+			
+				if(xx.indexOf(".")==-1){//本来没有 小数点 要给他一个小数点
+					xx = parseFloat(xx)+""
+					xx=xx+".0"//默认来1个小数
+				}			
+			
+			if(xx.split(".")[1].length>length){
+				pagecontentmanageobj.markErrorElement(vv,"请填写正确的数值，小数点请保留"+length+"位！");
+				vv.value=""
+				
+				return false;
+			}else{				
+				var tmp = length - xx.split(".")[1].length
+				for(var i=0;i< tmp;i++){
+					xx+="0";
+				}				
+				vv.value=xx;
+			}								 
+			
+		}else{
+			
+			pagecontentmanageobj.markErrorElement(vv,"请填写正确的数值，小数点请保留"+length+"位！");
+			vv.value="";
+			return false;	
+		}
+		restelementmousemovmentevent(vv);
+
+	}
+	restelementmousemovmentevent(vv);
+	return true;
+}
+	
+
+
+
+
+function check_numdotformatXieGang(vv){		//可以带小数点 //2003-11-12 限制位数2位 并且输出格式化成2位 允许"/"
+	//var pattern_numdot=/^([-])*\d{0,}([.]{0,1})(\d{0,})$/;
+
+	
+	//var pattern_numdot=/^([-]{0,1})?(\d{1,}[.]{1})?(\d{1,})$/; //2003－11－12以前使用
+	
+	vv.value=format_dotnum(vv.value,afterdot);
+	
+	if (vv.value=="/"){return ;}
+	
+	//var pattern_numdot=/^([-]{0,1})?(\d{1,}[.]{1})?(\d{1,2})$/;
+	var pattern_numdot=/^([-]{0,1})?((\d{1}|([1-9]{1}\d{1,}))[.]{1})?(\d{1,})$/;//2003-12-25改进
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_numdot.test(xx)){
+			alert ("请填写正确的数值，小数点请保留2位！");			
+			vv.value="";vv.focus();
+			sumcount();	//再次求和
+			return;
+		}
+	}	
+	
+	
+	
+	
+	
+}
+
+
+function check_numXieGang(vv){		//不带小数点 纯整数 允许"/"
+	var pattern_num=/^\d{0,}$/;
+	xx=vv.value;
+	
+	if (vv.value=="/"){return ;}
+	
+	if (""!=xx){
+		if (!pattern_num.test(xx)){
+			alert ("请填写0或正整数！");
+			vv.value="";vv.focus();return;
+		}
+	}
+}
+
+function check_num(vv){		//不带小数点 纯整数
+
+	var pattern_num=/^\d{0,}$/;
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_num.test(xx)){
+		    pagecontentmanageobj.markErrorElement(vv,"请填写0或正整数！")
+			vv.value="";
+			return false;
+			//alert ("请填写0或正整数！");
+			//vv.value="";vv.focus();return;
+		}else{
+			vv.value = 	parseInt(xx)	
+			
+		}
+	}else{
+		vv.value="0";
+	}
+
+	restelementmousemovmentevent(vv);
+	return true;
+}
+
+
+function check_year(vv){	//校验正确的 4位数 的数字 或者 年份
+	var pattern_year=/^\d{4}$/;
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_year.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv," 请填写正确的年份！")
+			vv.value="";
+			return false;
+			//alert ("填写正确的年份!"); 
+			//vv.value="";vv.focus();return;
+		}
+	}
+	restelementmousemovmentevent(vv);
+	return true
+}
+
+function check_post(vv){	//校验6为数值  邮政编码校验
+	var pattern_post=/^\d{6}$/;
+	xx=vv.value;
+	if (""!=vv.value){
+		if (!pattern_post.test(vv.value)){
+			pagecontentmanageobj.markErrorElement(vv,"请填写正确的邮政编码！")
+			vv.value="";
+			return false;
+			//alert ("请填写正确的邮政编码！");
+			//vv.value="";vv.focus();return;
+		}
+	}
+	restelementmousemovmentevent(vv);
+}
+
+function check_email(vv){	//校验正确的EMAIL
+	var pattern_email = /^[-._A-Za-z0-9]+@([-_A-Za-z0-9]+\.)+[-_A-Za-z0-9]{1,}$/; 
+	xx=vv.value;
+	if (""!=xx){
+		if(!pattern_email.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv,"请填写正确的电子邮件！");
+			vv.value="";
+			return false
+			//alert ("请用正确的email格式！");
+			//vv.value="";vv.focus();return;
+		}
+	}
+	restelementmousemovmentevent(vv);
+} 
+function check_date_withempty(vv){	//校验正确的 日期 格式为  1900-1-1 或者 1900/1/1 若没有日期可以输入,可以输入/
+//pagecontentmanageobj.markErrorElement(vv,"您所填写的日期不正确，请重新填写！")
+	var pattern_date=/^\d{4}[-/－]\d{1,2}[-/－]\d{1,2}$/;
+	xx=vv.value;
+	if("/"==xx){
+		restelementmousemovmentevent(vv);
+		return true;	
+	}
+	if (""!=xx)	{
+		if (!pattern_date.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv,"请用正确的格式填写日期！格式为:2002-8-02,若没有可填写时间，请填“/”")
+			vv.value="";
+			return false;
+//			vv.value="";vv.focus();return;
+		}//格式合法性校验结束
+	
+	if (xx.indexOf("-")!=-1){temp=xx.split("-");}
+	if (xx.indexOf("/")!=-1){temp=xx.split("/");}
+	if (xx.indexOf("－")!=-1){temp=xx.split("－");}	
+
+	switch(temp[1]-0){
+		case 1:case 3:case 5:case 7:case 8:case 10:case 12:yue2=31;break;
+		case 2:yue2=28;break;
+		case 4:case 6:case 9:case 11:yue2=30;break;
+	}
+	if ((temp[0]%4==0&&temp[0]%100!=0)||(temp[0]%100==0&&temp[0]%400==0)) if (temp[1]==2) yue2=29;//是闰年
+
+
+		if ((temp[1]>12||temp[1]<1)||(temp[2]>yue2||temp[2]<1)||temp[0]<1000){
+			pagecontentmanageobj.markErrorElement(vv,"您所填写的日期不正确，请重新填写！")
+			vv.value="";
+			return false;
+//			vv.value="";vv.focus();return;
+		}	//月日合法性校验结束
+	}	//非空结束
+	vv.value=xx.replace("－","-").replace("－","-"); //替换成为标准格式
+	vv.value=format_date(vv.value);
+	restelementmousemovmentevent(vv);
+	return true;
+	
+}
+
+function check_date(vv){	//校验正确的 日期 格式为  1900-1-1 或者 1900/1/1
+//pagecontentmanageobj.markErrorElement(vv,"您所填写的日期不正确，请重新填写！")
+	var pattern_date=/^\d{4}[-/－]\d{1,2}[-/－]\d{1,2}$/;
+	xx=vv.value;
+	if (""!=xx)	{
+		if (!pattern_date.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv,"请用正确的格式填写日期！格式为:2002-8-02")
+			vv.value="";
+			return false;
+//			vv.value="";vv.focus();return;
+		}//格式合法性校验结束
+	
+	if (xx.indexOf("-")!=-1){temp=xx.split("-");}
+	if (xx.indexOf("/")!=-1){temp=xx.split("/");}
+	if (xx.indexOf("－")!=-1){temp=xx.split("－");}	
+
+	switch(temp[1]-0){
+		case 1:case 3:case 5:case 7:case 8:case 10:case 12:yue2=31;break;
+		case 2:yue2=28;break;
+		case 4:case 6:case 9:case 11:yue2=30;break;
+	}
+	if ((temp[0]%4==0&&temp[0]%100!=0)||(temp[0]%100==0&&temp[0]%400==0)) if (temp[1]==2) yue2=29;//是闰年
+
+
+		if ((temp[1]>12||temp[1]<1)||(temp[2]>yue2||temp[2]<1)||temp[0]<1000){
+			pagecontentmanageobj.markErrorElement(vv,"您所填写的日期不正确，请重新填写！")
+			vv.value="";
+			return false;
+//			vv.value="";vv.focus();return;
+		}	//月日合法性校验结束
+	}	//非空结束
+	vv.value=xx.replace("－","-").replace("－","-"); //替换成为标准格式
+	vv.value=format_date(vv.value);
+	restelementmousemovmentevent(vv);
+	return true;
+	
+}
+function check_date_YYYYMM(vv){	//校验正确的 日期 格式为  1900-01 或者 1900/1
+	var pattern_date=/^\d{4}[-]\d{1,2}$/;
+	xx=vv.value;
+	if (""!=xx)	{
+		if (!pattern_date.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv,"请用正确的格式填写日期！格式为:2008-01");
+			vv.value="";
+			return false;
+		}//格式合法性校验结束
+	  //}
+	if (xx.indexOf("-")!=-1){temp=xx.split("-");}	
+		if (temp[1]>12 || temp[1]<1){
+			pagecontentmanageobj.markErrorElement(vv,"请用正确的格式填写日期！格式为:2008-01");
+			vv.value="";
+			return false;		
+		}	
+	}
+	vv.value=format_date(vv.value);
+    restelementmousemovmentevent(vv);
+	return true;
+}
+
+function check_web(vv){	//校验正确的网址
+	var pattern_web=/^http:\/\//;
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_web.test(xx)){
+			alert ("请填写正确的网址！");
+			vv.value="http://";vv.focus();return;
+		}
+	}
+}
+
+function check_strlen(vv,len){		//校验长度
+	xx=vv.value+"";
+	if (xx.length>len){
+		pagecontentmanageobj.markErrorElement(vv,"您的输入太长了,请不要超过"+len+"个字符!")
+		vv.value = ""
+		return false;
+	}else{
+			
+		restelementmousemovmentevent(vv);
+		return true;
+		
+	}
+}
+
+
+
+
+function check_null(vv){		//不能为空值
+	xx=vv.value;
+	if (""==xx){
+		alert ("不能为空！");
+		vv.focus();return;
+	}
+}
+
+function check_permonth(vv){//检测人月 格式 如下  X/Y
+//"人员费表"中的"目前参加其他课题数/时间"必须填写，格式为：X/Y;（没有或不填写以0/0显示）
+	var pattern_web=/^\d{1,}[/]\d{1,}$/;
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_web.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv,"请用正确格式填写\n正确格式为：X/Y;\nX代表目前参加其他课题数;Y代表时间(月)")
+			//alert ();
+			vv.value="0/00";
+			return false;
+		}
+	}
+	else{
+		vv.value="0/00";
+	}
+	restelementmousemovmentevent(vv);
+	return true
+}
+
+
+function check_fullinfo(){
+
+	for(i=0;i<(form1.elements.length-1);i++){
+		if(form1.elements[i].value=="")	{
+			if (form1.elements[i].alt!="可以不填写" ){
+				alert("请填写 \""+form1.elements[i].id+"\" ");
+				form1.elements[i].focus();
+			//window.scroll(0,0);
+			return false;
+			}
+		}//校验空结束
+	}//循环结束 校验空结束
+	
+	return true;
+}
+
+function check_isCHN(vv){		//检查是否填写的字符中带中文  并以中文结尾
+	var pattern_numdot=/[^ -}]$/;
+	if (vv.value=="/"){return ;}
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_numdot.test(xx)){
+			alert ("请填写中文！");
+			vv.value="";vv.focus();return;
+		}
+	}
+}
+
+function check_confirm(vv,fname){		//确认是否作此操作 用于button类型	写法 check_confirm(this) 或者 check_confirm(this,表单名字)
+	xx=vv.value
+	if (fname==null) 
+		if (document.forms.length==1) fname=document.forms[0];	//默认是第一个 并且此页面只有一个FORM
+			else {alert("此页面非一个FORM表单，请写全参数！");return;}
+	state=confirm("您是否确认"+xx+"！");
+	if (state==true) fname.submit();
+		else return;
+}
+
+function check_positiveInteger(vv){		//判断是否是正整数 >=0 没有小数点
+	var pattern_num=/^\d{0,}$/;
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_num.test(xx)){
+			alert ("请填写0或正整数！");
+			vv.value="";vv.focus();return;
+		}
+	}
+}
+
+
+function check_positiveIntegerAndLimit(v1,v2){
+	
+	if(!check_num(v1)){	
+		return false;
+	 }
+	 if(!check_num(v2)){	
+		return false;
+	 }
+	var obj = event.srcElement
+	if(parseInt(v1.value)<parseInt(v2.value)){
+		    pagecontentmanageobj.markErrorElement(obj,"您填写的数据应小于等于专利总数！")
+			obj.value = ""
+			obj.focus();
+		    return false;
+	}
+	restelementmousemovmentevent(obj);
+}
+
+
+
+function check_numdotdefine(vv,length){//可以带指定位数的小数点
+	var pattern_numdot=/^([-]{0,1})?((\d{1}|([1-9]{1}\d{1,}))[.]{1})?(\d{1,})$/;
+	xx=vv.value;
+	if (""!=xx){
+		if (pattern_numdot.test(xx)){
+			
+				if(xx.indexOf(".")==-1){//本来没有 小数点 要给他一个小数点
+					xx=xx+".0"//默认来1个小数
+				}			
+			
+			if(xx.split(".")[1].length>length){
+				alert ("请填写保留"+length+"位小数的数字");
+				vv.value="";vv.focus();return false;
+			}else{				
+				var tmp = length - xx.split(".")[1].length
+				for(var i=0;i< tmp;i++){
+					xx+="0";
+				}				
+				vv.value=xx;
+			}								 
+			
+		}else{
+			
+			alert ("请填写保留"+length+"位小数的数字");
+					vv.value="";vv.focus();return false;	
+		}
+		
+	}
+	return true;
+}
+function check_birthYYYYMM(vv){	//校验正确的 日期 格式为  1900-1-1 或者 1900/1/1
+
+	var pattern_date=/^\d{4}[-－]\d{1,2}$/;
+	xx=vv.value;
+	if (""!=xx)	{
+		if (!pattern_date.test(xx)){
+			alert ("请填写正确的格式！格式为:2002-08");
+			vv.value="";vv.focus();return;
+		}//格式合法性校验结束
+	
+	if (xx.indexOf("-")!=-1){temp=xx.split("-");}
+	if (xx.indexOf("－")!=-1){temp=xx.split("－");}	
+
+	vv.value=xx.replace("－","-").replace("－","-"); //替换成为标准格式
+	}
+}
+
+function round(a,b){ //四舍五入
+	a*=(Math.pow(10,b));
+	a=Math.round(a);
+	a/=(Math.pow(10,b));
+	return a;
+}
+function isCHN(value){
+	var pattern_numdot=/[^ -}]$/;
+	xx=value
+	if (""!=xx){
+		if (!pattern_numdot.test(xx)){
+			return false
+		}
+		else{
+				return true
+			}
+	}
+	else{
+		return false	
+	}
+}
+
+//比较2个日期
+//如果 date1<date2  则返回 false 
+//如果 date1>=date2 则返回 true
+//举例  date1=1961-01-01 > date2=1962-01-01   返回 true
+//举例  date1=1962-01-01 = date2=1962-01-01   返回 true
+//举例  date1=1963-01-01 > date2=1962-01-01   返回 false
+function compare_date(date1,date2){	
+		s1=date1.split("-");
+		s2=date2.split("-");
+
+		syear1=parseInt(s1[0],10);
+		syear2=parseInt(s2[0],10);
+		smonth1=parseInt(s1[1],10);
+		smonth2=parseInt(s2[1],10);
+		sday1=parseInt(s1[2],10);
+		sday2=parseInt(s2[2],10);
+
+		flag=true
+
+		if (syear1!=syear2){
+			//执行判断
+			if (syear1>syear2) flag=false;
+			if (syear2==1900) flag=true;
+		}
+		else{	//相同的年份
+			if (smonth1!=smonth2){
+				//执行判断
+				if (smonth1>smonth2) flag=false;
+			}
+			else{	//相同的年月
+				if (sday1!=sday2){
+					//执行判断
+					if (sday1>sday2) flag=false;
+				}
+				else{//相同的年月日
+					flag=true;
+				}
+			}//第二个else
+			
+		}//第一个ELSE
+//如果 date2>=date1 则返回 true 否则返回false
+		return flag;
+
+}
+
+
+function check_email(vv){	//校验正确的EMAIL
+	var pattern_email = /^[-._A-Za-z0-9]+@([-_A-Za-z0-9]+\.)+[-_A-Za-z0-9]{1,}$/; 
+	xx=vv.value;
+	if (""!=xx){
+		if(!pattern_email.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv,"请填写正确的电子邮件！");
+			vv.value="";
+			return false
+			//alert ("请用正确的email格式！");
+			//vv.value="";vv.focus();return;
+		}
+	}
+	restelementmousemovmentevent(vv);
+} 
+
+
+function compare_unlessdate(vv,agecheck){
+
+		var myDate = new Date();
+		thisyear=myDate.getFullYear();
+        if(!check_date(vv)){	
+		    return false;
+	    }
+	    var flag=true;//标志表示正确
+        if (vv.value!="")
+		{			
+            d1=vv.value; //开始日期
+            if(agecheck =="1"){//启明星  35岁
+				d2=thisyear-35+"-01-01";
+				//alert(d2);
+	    	}else if(agecheck =="2"){//学科带头人 50岁		
+				d2=thisyear-50+"-01-01";
+				//alert(d2);
+        	}else if(agecheck =="4"){//自然科学 青年项目 32岁		
+				d2=thisyear-32+"-01-01";
+				//alert(d2);
+        	}			
+			else if(agecheck =="3"){//其他
+				return true	
+			}
+
+			//如果 指定日期D2 小于等于 出生日期D1  则 符合约束条件
+            if(compare_date(d2,d1))
+			{			
+				flag = true	; //符合条件
+			}else
+			{
+				flag = false;	
+			}
+        }
+
+        if (!flag)
+		{
+		    if(agecheck=="1")
+			{
+			  pagecontentmanageobj.markErrorElement(vv,"申报年龄不能大于35周岁！");
+			  
+		    }else if(agecheck=="2")
+		    {
+			  pagecontentmanageobj.markErrorElement(vv,"申报年龄不能大于50周岁！");
+			  
+		    }else if(agecheck=="4")
+		    {
+			  pagecontentmanageobj.markErrorElement(vv,"申报年龄不能大于32周岁！");
+			  
+		    }
+			vv.value="";
+            return false;
+       }
+	     restelementmousemovmentevent(vv);
+         return true;      
+}
+
+function check_SEdate(sdate,edate){
+	if(!check_date_YYYYMM(sdate)){	
+		return false;
+	 }
+	 if(!check_date_YYYYMM(edate)){	
+		return false;
+	 }
+	var obj = event.srcElement
+	if(!compare_date(sdate.value,edate.value)){
+		    pagecontentmanageobj.markErrorElement(obj,"请填写正确的起止时间")
+			obj.value = ""
+			obj.focus();
+		    return false;
+	}
+	restelementmousemovmentevent(obj);
+}
+
+function check_FullSEdate(sdate,edate){
+	if(!check_date(sdate)){	
+		return false;
+	 }
+	 if(!check_date(edate)){	
+		return false;
+	 }
+	var obj = event.srcElement
+	if(!compare_date(sdate.value,edate.value)){
+		    pagecontentmanageobj.markErrorElement(obj,"请填写正确的起止时间")
+			obj.value = ""
+			obj.focus();
+		    return false;
+	}
+	restelementmousemovmentevent(obj);
+}
+
+function check_SBCcase(obj){
+	var reg = /[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/gi;
+	if (reg.test(obj.value)){
+		pagecontentmanageobj.markErrorElement(obj,"有全角")
+		return false;
+	}else{
+		restelementmousemovmentevent(obj);
+		return true
+	}  
+ }
+function format_date(datevalue){
+	
+	
+	var datevaluearray =  datevalue.split("-")
+	for(var i=1;i<datevaluearray.length;i++){
+		if(datevaluearray[i].length==1){
+			datevaluearray[i] = "0"+datevaluearray[i]
+		}
+	}
+
+	return datevaluearray.join("-")
+	 
+}
+
+
+/*
+验证和提示 可多选的复选框
+checkboxObj   当前复选框对象  --传入this
+fieldObj   复选框对象 ---数组
+maxNum		复选框最多选择项数
+*/
+function checkMaxMultiCheckbox(checkboxObj,fieldObj,maxNum){
+	
+	restelementmousemovmentevent(getParentNodeOfElement("td",checkboxObj))
+	
+	//if (nowObj.style.backgroundColor.toUpperCase() == pagecontentmanageobj.errorcolor.toUpperCase() ){
+	//	restelementmousemovmentevent(nowObj);
+	//}
+	
+	var i;
+	var c=0;
+	for (i=0;i<(fieldObj.length-0);i++){
+		if (fieldObj[i].checked==true) {c++;}
+	}
+
+	if (c==maxNum){
+		for (i=0;i<fieldObj.length-0;i++){
+			pagecontentmanageobj.markNoticeElement(fieldObj[i],"您已经选择了"+maxNum+"项，最多选择"+maxNum+"项！");
+		}
+	}	
+	
+	else if (c>maxNum){
+		checkboxObj.checked=false;
+		for (i=0;i<fieldObj.length-0;i++){
+			pagecontentmanageobj.markNoticeElement(fieldObj[i],"您已经选择了"+maxNum+"项，不能再进行选择！");
+		}
+	}
+	else{
+		for (i=0;i<fieldObj.length-0;i++){
+			restelementmousemovmentevent(fieldObj[i]);
+		}	
+	}
+	
+	checkboxObj.fireEvent("onmouseover");
+	
+	if (c>maxNum){
+		return false;
+	}
+	
+	
+}
+
+/*
+验证 单位（企业）代码 格式是否合法
+*/
+function check_orgcode(vv){		
+	var pattern_num=/^\w{8}[-－]\w{1}$/;
+	xx=vv.value;
+	if (""!=xx){
+		if (!pattern_num.test(xx)){
+			pagecontentmanageobj.markErrorElement(vv,"请填写正确的单位（企业）代码！<br>格式为:xxxxxxxx-x");
+			vv.value="";
+			return false;
+			//alert ("请填写正确的！\n格式为:xxxxxxxx-x");
+			//vv.value="";vv.focus();return false;
+		}
+	}
+	vv.value=xx.replace("－","-");
+
+	restelementmousemovmentevent(vv);
+	return true;
+}
+
+/*
+校验2个日期的大小关系
+fromDateObj 开始日期
+toDateObj 结束日期
+*/
+function check_relateDateField(fromDateObj,toDateObj){
+	if (fromDateObj.value==""|| toDateObj.value==""){
+		return true;
+	}
+	if (!compare_date(fromDateObj.value,toDateObj.value)){
+		pagecontentmanageobj.markErrorElement(fromDateObj,"开始日期必须小于等于结束日期！<br>");
+		pagecontentmanageobj.markErrorElement(toDateObj,"结束日期必须大于等于开始日期！<br>");
+		fromDateObj.value="";
+		toDateObj.value="";
+		return false;
+	}
+	else{
+		restelementmousemovmentevent(fromDateObj);
+		restelementmousemovmentevent(toDateObj);	
+		return true;
+	}
+
+
+}
+
+
+function check_personinfo(pe_idtag,pe_id,pe_sex,pe_birthdate){
+	if(pe_idtag.value=="1" && pe_id.value!=""){//证件类型选择身份证,且已输入身份证
+		var pinfo = getPinfoByIdNumber(pe_id)
+
+		//比较性别
+		var sexchose = pe_sex.options[pe_sex.selectedIndex].value;
+
+		
+
+		if(pinfo[0]!=sexchose){
+			pe_id.value = "";
+			pagecontentmanageobj.markErrorElement(pe_id,"身份证号码与性别信息不匹配")
+		}
+		//比较出生日期 为保证精确比较,需将两个日期值转换成日期对象比对
+		var bdtemp = pe_birthdate.value.split("-")
+		var bdchose = new Date(bdtemp[0],parseInt(bdtemp[1].replace(/^0/,""),10) - 1,bdtemp[2])+"";
+		var pinfobdtemp = pinfo[1].split("-")
+		var pinfobd = new Date(pinfobdtemp[0],parseInt(pinfobdtemp[1].replace(/^0/,""),10) - 1,pinfobdtemp[2])+"";
+		
+		if (bdchose!=pinfobd){
+
+			pe_id.value = "";
+			pagecontentmanageobj.markErrorElement(pe_id,"身份证号码与出生日期信息不匹配")
+		}	
+		
+	}
+}
+
+function check_allpersoninfo(pe_idtag,pe_id,pe_sex,pe_birthdate){
+
+	if(pe_id.length){
+		for(var i=0;i<pe_id.length;i++){
+			check_personinfo(pe_idtag[i],pe_id[i],pe_sex[i],pe_birthdate[i])			
+		}
+	}else{
+		check_personinfo(pe_idtag,pe_id,pe_sex,pe_birthdate)	
+	}
+	
+}
+
+
+function check_personid(pe_idtag,pe_id,pe_sex,pe_birthdate){
+//j校验身份证是否合法 
+//如果 不满18位 后面 XXXXX
+
+//参数一 表示 域的名字 参数二表示 此域所在位置
+
+
+
+
+	if(pe_id.length){
+	
+		for(var i=0;i<pe_id.length;i++){
+			
+			if(pe_idtag[i].value=="1" ){
+
+				pe_birthdate[i].readonly = true
+				
+			}else{
+
+				pe_birthdate[i].readonly = false
+			}
+
+
+
+			
+			
+			if(pe_idtag[i].value=="1" && pe_id[i].value!=""){
+
+				if(!checkIdNumber(pe_id[i].value)){
+					pagecontentmanageobj.markErrorElement(pe_id[i],"请填写正确的身份证号码")
+					pe_id[i].value = ""
+			
+				}else{
+					getBirthDateAndSexByIdNumber(pe_id[i],pe_sex[i],pe_birthdate[i])
+					restelementmousemovmentevent(pe_id[i]);
+				}
+			}else{
+			restelementmousemovmentevent(pe_id[i]);		
+			
+			}
+			
+		
+		}
+		
+	
+	}else{
+		//alert(checkIdNumber(pe_id.value))
+		
+		if(pe_idtag.value=="1" ){
+
+			pe_birthdate.readonly = true
+				
+		}else{
+
+			pe_birthdate.readonly = false
+		}
+	
+if(pe_idtag.value=="1" && pe_id.value!=""){
+					if(!checkIdNumber(pe_id.value)){
+						pagecontentmanageobj.markErrorElement(pe_id,"请填写正确的身份证号码")
+						pe_id.value = ""
+				
+					}else{
+	
+						getBirthDateAndSexByIdNumber(pe_id,pe_sex,pe_birthdate)
+						restelementmousemovmentevent(pe_id);
+					}
+				}
+				else{
+					restelementmousemovmentevent(pe_id);		
+			
+				}
+	
+	}
+
+}
+
+/*
+循环判断每一个填写域是否已填写
+
+以下情况排除
+1、隐藏域
+2、只读
+3、属性中带有 allowempty 字样 
+*/
+function check_form_not_empty(){
+	var checkresult = true
+	for(i=0;i<(document.forms[0].elements.length);i++){	//表单内容依次循环查找
+		if(document.forms[0].elements[i].type!="hidden"){
+			if(document.forms[0].elements[i].value=="" && !document.forms[0].elements[i].readOnly && !document.forms[0].elements[i].disabled &&  document.forms[0].elements[i].getAttribute("allowempty")==null ){
+				pagecontentmanageobj.markErrorElement(document.forms[0].elements[i],alert_befor_lock)
+				//alert(document.forms[0].elements[i].id)
+				checkresult = false;
+			}//校验空结束
+		}
+	}//循环结束 校验空结束	
+	return checkresult;	
+}
+
+
+
+
+//校验经费总额和申请额是否满足“同一项支出不得在申请资助经费和自筹经费中申报”原则
+//allpri--经费总额对象,例如：form1.wx_priz
+//thispri--申请额对象,例如：form1.wx_thispr
+//msg--报错信息
+//pri--单价
+//prilimit--单价限额
+//调用示例代码如下
+//function checkApplyValue(allpri,thispri,msg,actionObject){
+//	if(!check_numdotformat(thispri)){	'进行数字型校验
+//		return false
+//	}
+//	compareAllCostAndApplyWithLimit(allpri,thispri,msg,,);
+//	sumcount();'计算列累计
+//}
+function compareAllCostAndApplyWithLimit(allpri,thispri,msg,pri,prilimit){
+	var obj = event.srcElement
+	var priz = allpri
+	var thispr = thispri
+	var degpri = pri
+	if(!check_numdotformat(obj)){
+			return false
+	}
+	
+	if(priz.length){
+		var loophasnomark = true
+		for(var i=0;i<priz.length;i++){
+			if(pri!=null&&new Number(degpri[i].value)>=prilimit&& new Number(thispr[i].value)<= new Number(priz[i].value)){//单价超过30万
+				restelementmousemovmentevent(thispr[i]); //单价超过30万 总价与申请资助约束取消,回置控件错误标红状态
+			}else{//单价未超过30万,总价与申请资助约束成立
+				
+				
+				
+				if(thispr[i].value!=""&&((thispr[i].value)!=0&&(thispr[i].value)!=(priz[i].value))){//约束未达成
+					loophasmark = false
+					thispr[i].value = ""
+					pagecontentmanageobj.markErrorElement(thispr[i],msg)
+				
+				}else{//约束达成,回置控件错误标红状态
+				//restelementmousemovmentevent(thispr[i]); 
+				}
+			}
+		}
+		return loophasnomark
+	}else{
+			///alert(new Number(degpri.value)>=prilimit)
+			if(pri!=null&&new Number(degpri.value)>=prilimit&& new Number(thispr.value)<= new Number(priz.value)){//单价超过30万
+				restelementmousemovmentevent(thispr); //单价超过30万 总价与申请资助约束取消,回置控件错误标红状态
+				return true
+			
+			}else{//单价未超过30万,总价与申请资助约束成立
+
+				if(thispr.value!=""&&((thispr.value)!=0&&(thispr.value)!= (priz.value))){//约束未达成
+					thispr.value = ""
+					//alert(new Number(thispr.value)!=0&&new Number(thispr.value)!= new Number(priz.value))
+					pagecontentmanageobj.markErrorElement(thispr,msg)
+					return false
+				}else{//约束达成,回置控件错误标红状态
+					restelementmousemovmentevent(thispr); 
+					return true
+				}
+			}
+	}
+
+
+}
+
+
+
+function getParentNodeOfElement(parentnodename,obj){
+	
+	if(obj.tagName.toUpperCase() == parentnodename.toUpperCase()){
+		returnobj = obj
+		
+		
+		return 	returnobj;
+	}else{
+		obj = obj.parentNode
+		return 	getParentNodeOfElement(parentnodename,obj)
+	}
+}
+
+function ischeckboxesnocheck(checkboxes,msg){
+	var ischecked = false
+	if(checkboxes.length){
+		for(var i=0;i<checkboxes.length;i++){
+			//alert(checkboxes[i].checked)
+			if(checkboxes[i].checked){
+				ischecked = true
+				break
+			}	
+		}	
+		
+	}else{
+		ischecked = checkboxes.checked
+	}
+	
+
+	if(!ischecked){
+		var tomarkone = null
+		if(checkboxes.length){
+
+			 tomarkone = getParentNodeOfElement("td",checkboxes[0])	
+			 //alert(getParentNodeOfElement("td",checkboxes[0]))
+		
+		}else{
+			 tomarkone = getParentNodeOfElement("td",checkboxes)	
+	
+		}
+		pagecontentmanageobj.markErrorElement(tomarkone,msg)
+		return false
+	}
+	
+	return true
+	
+}
+
+function resetcheckboxtd(checkboxobj){
+	markone = getParentNodeOfElement("td",checkboxobj)
+	restelementmousemovmentevent(markone); 	
+
+}
+
+function getRadiosorCheckboxesValue(obj){
+	if(obj.length){
+		for(var i=0;i<obj.length;i++){
+			if(obj[i].checked){
+				return obj[i].value
+			}
+		
+		}
+	}else{
+		if(obj.checked){
+			return obj.value
+		
+		}
+	
+	}
+	return "";
+
+
+}
+
+
+
+
+
+function isElementsValueEmpty(elementstr,msg){
+	elements = elementstr.split(",")
+	
+	var checkresult  = true
+
+	for(var i=0;i<elements.length;i++){
+		checkelement = document.getElementById(elements[i])//eval("document.all."+elements[i])
+		//alert(checkelement.getAttribute("allowempty"))
+		if(checkelement==null || checkelement.getAttribute("allowempty")!=null){
+			continue
+		}
+		if(checkelement.length&&(checkelement.type!="select-one" && checkelement.type!="select-multiple" && checkelement.type!="textarea")){
+			//alert("array")
+			if(checkelement[0].type=="radio" || checkelement[0].type=="checkbox"){
+					if(!ischeckboxesnocheck(checkelement,msg)){
+					
+						checkresult = false
+					}
+			}else{
+
+			}
+			
+		}else{
+
+			if(checkelement.value=="" || checkelement.value=="noneselect"){
+				//alert(checkelement.id+"beforemark")
+				if(checkelement.type!="hidden"){
+
+				pagecontentmanageobj.markErrorElement(checkelement,msg)	
+				
+				}
+				else{
+				
+					pagecontentmanageobj.markErrorElement(getParentNodeOfElement("td",checkelement),msg)
+				}
+				
+				checkresult = false
+				
+			}
+		
+		}
+		
+	
+	}
+	return checkresult
+}
+
+/*
+验证是否是比例 0-100 整数
+*/
+function check_proportion(vv){
+	
+	if (check_numdotformat(vv)){
+		if((vv.value<0)||(vv.value>100)){
+			pagecontentmanageobj.markErrorElement(vv,"请填写正确的比例！范围为0到100！");
+			vv.value="";
+			//alert("0<=数字<=100");
+			//xx.focus();
+			return false;
+		}
+		restelementmousemovmentevent(vv);
+	}
+}
+
+
+function check_dateinterval(obj,intervals,intervale){
+	var objvalue = 	obj.value.split("-").join("")
+	intervalsvalue = intervals.split("-").join("")
+	intervalevalue = intervale.split("-").join("")
+	//alert(objvalue+" "+intervalsvalue+" "+intervalevalue)
+	if(objvalue>=intervalsvalue&&objvalue<=intervalevalue){
+		restelementmousemovmentevent(obj);
+		return true	
+		
+	}else{
+				pagecontentmanageobj.markErrorElement(obj,"所填写时间需大于等于"+intervals+"且小于等于"+intervale+"!");	
+			obj.value = ""	
+		return false	
+		
+	}
+	
+	
+	
+}
+
+function check_numintervalnoequal(obj,intervals,intervale){
+	var objvalue = 	new Number(obj.value)
+	var intervalsvalue = new Number(intervals)
+	var intervalevalue = new Number(intervale)
+		
+	if(objvalue>intervalsvalue&&objvalue<=intervalevalue){
+		restelementmousemovmentevent(obj);
+		return true	
+		
+	}else{
+		pagecontentmanageobj.markErrorElement(obj,"所填写值需大于"+intervals+"且小于等于"+intervale+"!");	
+		obj.value = ""	
+		return false	
+		
+	}
+	
+}
+
+//比较两个对象的值是否相等
+//调用示例：if(!compareTwoValues(form1.p_psw,form1.p_psw_confirm,"请确认两次输入的密码相同！")){return;}
+function compareTwoValues(firstObject,seconendObject,msg){
+	if(firstObject.value!=seconendObject.value){
+		pagecontentmanageobj.markErrorElement(seconendObject,msg);
+		seconendObject.value=''
+		return false;
+	}else{
+		restelementmousemovmentevent(seconendObject); 	
+		return true;
+	}		
+}
+
+function check_kong(vv){		//不能为空值
+	xx=vv.value;
+	if ((xx.indexOf(" ")!=-1)||(xx.indexOf("　")!=-1)){
+		alert ("此项不能输入空格!");
+		vv.focus();return;
+	}
+}
+function mi(){
+       
+		if((document.form1.p_psw.value.length<8)||(document.form1.p_psw.value.length>16))
+		{
+		pagecontentmanageobj.markErrorElement(document.form1.p_psw,"请填写正确密码格式！格式为:8-16位");
+		
+		//alert("密码格式不正确");
+		//document.form1.p_psw.focus();
+		return false;}else{
+		restelementmousemovmentevent(document.form1.p_psw);
+		return true;
+		}
+}
+function check_mobile(vv){
+         var vv = arguments[0]; 
+         var pattern_num=/^\d{11}(-\d{1,})?$/;
+         xx=vv.value;
+         if (""!=xx){
+                   if (!pattern_num.test(xx)){
+							pagecontentmanageobj.markErrorElement(vv,"请填写正确的手机号码！");
+                            vv.value = "";
+							return false;
+                   }
+         }
+		 restelementmousemovmentevent(vv);
+         return true;
+}
+
+
+function check_personidCard(pe_idtag,pe_id){
+//j校验身份证是否合法 
+//如果 不满18位 后面 XXXXX
+
+//参数一 表示 域的名字 参数二表示 此域所在位置
+	  isLiked="-1";
+	  for(var i=0;i<pe_idtag.length;i++){ 
+		if(pe_idtag[i].checked){ 
+		  isLiked=pe_idtag[i].value; 
+		} 
+	  } 
+
+	  if(isLiked=="1" && pe_id.value!=""){
+	
+		  if(!checkIdNumber(pe_id.value)){
+			  pagecontentmanageobj.markErrorElement(pe_id,"请填写正确的身份证号码")
+			  pe_id.value = ""
+	  
+		  }else{
+			  restelementmousemovmentevent(pe_id);
+		  }
+	  }
+	  else{
+		  restelementmousemovmentevent(pe_id);		
+  
+	  }
+}
+
+
+
+//v1: 申请政府资助金
+//v2: 项目总经费
+function check_p_zz00Andp_money10(v1,v2){
+	var v1_temp = new Number(v1.value)
+	var v2_temp = new Number(v2.value)
+	
+//	if(!check_numdotformat(v1,2,true)){	
+//		return false;
+//	 }
+//	 if(!check_numdotformat(v2,2,true)){	
+//		return false;
+//	 }
+
+	var obj = event.srcElement
+	if(v1_temp>v2_temp){
+		    pagecontentmanageobj.markErrorElement(obj,"申请政府资助金应小于等于项目总经费！")
+			obj.value = ""
+			obj.focus();
+		    return false;
+	}
+//	restelementmousemovmentevent(obj);
+}
+

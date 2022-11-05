@@ -1,0 +1,151 @@
+var tooltipenableparam = true
+var rT=true;//允许图像过渡
+var bT=true;//允许图像淡入淡出
+var tw=200;//提示框宽度
+var endaction=false;//结束动画
+var ns4 = document.layers;
+var ns6 = document.getElementById && !document.all;
+var ie4 = document.all;
+offsetX = 0;
+offsetY = 20;
+var toolTipSTYLE="";
+var isinit = false
+function initToolTips()
+{
+if(isinit){
+	return
+}
+  if(ns4||ns6||ie4)
+  {
+    if(ns4) toolTipSTYLE = document.toolTipLayer;
+    else if(ns6) toolTipSTYLE = document.getElementById("toolTipLayer").style;
+    else if(ie4) toolTipSTYLE = document.all.toolTipLayer.style;
+    if(ns4) document.captureEvents(Event.MOUSEMOVE);
+    else
+    {
+      toolTipSTYLE.visibility = "visible";
+      toolTipSTYLE.display = "none";
+    }
+    document.onmousemove = moveToMouseLoc;
+  }
+}
+function toolTip(msg, fg, bg)
+{
+	var IfrRef = document.all.DivShim;
+	
+	initToolTips()
+	if(msg)
+	if(tooltipenableparam!=null&&!tooltipenableparam){
+		return false;
+	}
+  if(toolTip.arguments.length < 1) // hide
+  {
+	 
+//    if(ns4) 
+//    {
+//    toolTipSTYLE.visibility = "hidden";
+//    }
+//    else 
+//    {
+//	
+//     if(document.all("msg1")){	
+//		 //--图象过渡，淡出处理--
+////		  if (!endaction) {toolTipSTYLE.display = "none";}
+////		  if (rT) document.all("msg1").filters[1].Apply();
+////		  if (bT) document.all("msg1").filters[2].Apply();
+////		  document.all("msg1").filters[0].opacity=0;
+////		  if (rT) document.all("msg1").filters[1].Play();
+////		  if (bT) document.all("msg1").filters[2].Play();
+////		  if (rT){ 
+////		  if (document.all("msg1").filters[1].status==1 || document.all("msg1").filters[1].status==0){  
+////		  toolTipSTYLE.display = "none";}
+////		  }
+////		  if (bT){
+////		  if (document.all("msg1").filters[2].status==1 || document.all("msg1").filters[2].status==0){  
+////		  toolTipSTYLE.display = "none";}
+////		  }
+//		  if (!rT && !bT) toolTipSTYLE.display = "none";
+//	 }
+//      //----------------------
+//    }
+toolTipSTYLE.display = "none";
+IfrRef.style.display = "none"; 
+
+
+  }
+  else // show
+  {
+  //  if(!fg) fg = "#777777";
+   // if(!bg) bg = "#eeeeee";
+// tw = 	countmsglength(msg)
+    var content =
+    '<table id="msg1" name="msg1" border="0" cellspacing="0" cellpadding="1"  ><td>' +
+    '<table border="0" cellspacing="0" cellpadding="3" style="font-size: 12px;"><td id=tooltipmsgcell width=' + tw + '  align="left" >' + msg +
+    '&nbsp\;</td></table></td></table>';
+
+    if(ns4)
+    {
+      toolTipSTYLE.document.write(content);
+      toolTipSTYLE.document.close();
+      toolTipSTYLE.visibility = "visible";
+    }
+    if(ns6)
+    {
+      document.getElementById("toolTipLayer").innerHTML = content;
+      toolTipSTYLE.display='block'
+    }
+    if(ie4)
+    {
+	  
+      document.all("toolTipLayer").innerHTML=content;
+	 
+	  document.all.tooltipmsgcell.width =  countmsglength(document.all("toolTipLayer").innerText)
+	  DivRef = 	document.all.toolTipLayer
+	  //IfrRef.style.width = DivRef.style.width
+      //IfrRef.style.height = DivRef.style.height
+      IfrRef.style.top = DivRef.style.top;
+      IfrRef.style.left = DivRef.style.left;
+      IfrRef.style.zIndex = DivRef.style.zIndex ;
+      IfrRef.style.display = "block"; 
+	  toolTipSTYLE.display='block'
+	}
+  }
+  isinit = true
+}
+function moveToMouseLoc(e)
+{
+		var IfrRef = document.all.DivShim;
+  if(ns4||ns6)
+  {
+    x = e.pageX;
+    y = e.pageY;
+  }
+  else
+  {
+    x = event.x + document.body.scrollLeft;
+    y = event.y + document.body.scrollTop;
+  }
+  toolTipSTYLE.left = x + offsetX;
+  toolTipSTYLE.top = y + offsetY;
+  
+    IfrRef.style.top = toolTipSTYLE.top
+      IfrRef.style.left = toolTipSTYLE.left
+  
+  return true;
+}
+
+
+function countmsglength(msg){
+	msgarray = msg.split("\n")
+	
+	maxmsglength = 0
+	for(var i=0;i<msgarray.length;i++){
+			
+		if(	msgarray[i].length>maxmsglength){
+
+			maxmsglength = 	msgarray[i].length
+		}
+	}
+	//alert("length = " +maxmsglength)
+	return maxmsglength*12
+}

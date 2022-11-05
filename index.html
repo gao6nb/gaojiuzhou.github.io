@@ -1,93 +1,945 @@
-<!--
- * @Descripttion: 请写上页面名字
- * @version: 1.0
- * @Author: GaoJiuZhou
- * @Date: 2022-03-06 17:44:53
- * @LastEditors: GaoJiuZhou
- * @LastEditTime: 2022-03-06 17:59:43
--->
-<!DOCTYPE html>
-<html lang="en">
-
+<!-- saved from url=(0097)https://www1.stcsm.sh.gov.cn/nkyydb2014/kxx01/dwform_proj.asp?p_id=12014041422414989772#titlehash -->
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>超大背景图片</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
+    <meta http-equiv="X-UA-Compatible" content="IE=5">
 
-    div {
-      background-image: url(./作业相关素材/bg.jpg);
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-attachment: fixed;
-    }
-  </style>
+    <link rel="stylesheet" href="./单位(企业)基本情况表_files/default.css" type="text/css">
+    <link rel="stylesheet" href="https://www1.stcsm.sh.gov.cn/nkyydb2014/style/.tooltip.css">
+    <link rel="stylesheet" href="./单位(企业)基本情况表_files/calendar-blue.css" type="text/css">
+    <script language="javascript" src="./单位(企业)基本情况表_files/gen.js.下载"></script>
+    <script language="javascript" src="./单位(企业)基本情况表_files/check.js.下载"></script>
+
+    <script language="javascript" src="./单位(企业)基本情况表_files/tooltip.js.下载"></script>
+    <script language="javascript" src="./单位(企业)基本情况表_files/hashtable.js.下载"></script>
+    <script language="javascript" src="./单位(企业)基本情况表_files/pagecontentmanage.js.下载"></script>
+    <script type="text/javascript" src="./单位(企业)基本情况表_files/calendar.js.下载"></script>
+    <script type="text/javascript" src="./单位(企业)基本情况表_files/calendar-cn-utf8.js.下载"></script>
+    <script type="text/javascript" src="./单位(企业)基本情况表_files/calendar-setup.js.下载"></script>
+
+
+    <script type="text/javascript" src="./单位(企业)基本情况表_files/-1.8.2.min.js.下载"></script>
+    <script type="text/javascript" src="./单位(企业)基本情况表_files/bgiframe.js.下载"></script>
+    <script type="text/javascript" src="./单位(企业)基本情况表_files/dimensions.js.下载"></script>
+    <script type="text/javascript" src="./单位(企业)基本情况表_files/tooltip.js(1).下载"></script>
+
+
+    <script language="javascript">
+        var pagecontentmanageobj = new pagecontentmanage()
+        pagecontentmanageobj.imgpath = "../image/" //默认图片参数用于pagecontentmanage中相关图片路径,可以直接通过属性设置修改
+        pagecontentmanageobj.loadingimg = "loading.gif" //默认载入中图片,可以直接通过属性设置修改
+
+        pagecontentmanageobj.errorcolor = "#FFBA75" //默认载入中图片,可以直接通过属性设置修改
+
+        //pagecontentmanageobj.loadingContainer = document.all.sstic_loadingcontainer
+    </script>
+
+    <script type="text/javascript">
+
+
+        function setday(obj1, obj2) {
+
+            Calendar.setup(
+                {
+                    inputField: obj1.id,         // ID of the input field
+                    ifFormat: "%Y-%m-%d",    // the date format
+                    button: obj1.id       // ID of the button
+                }
+            );
+        }
+    </script>
+
+
+    <script language="JavaScript">
+        <!--
+        //if (window.navigator.userAgent.indexOf("MSIE")>=1)
+        //{
+        //正常浏览器
+        //}else{
+
+        //document.getElementById("loginsubmitbutton").disabled = true
+        //alert("请使用Micosoft Internet Explorer(IE)6.0或7.0版本的浏览器\n进行项目任务书申报！")
+        //}
+        function msieversion() //判断浏览器版本
+
+        {
+            var ua = window.navigator.userAgent
+            var msie = ua.indexOf("MSIE ")
+            if (msie >= 0)        // is Microsoft Internet Explorer; return version number
+                return parseFloat(ua.substring(msie + 5, ua.indexOf(";", msie)))
+            else
+                return 0    // is other browser
+        }
+
+        //alert(msieversion())
+
+        //if(msieversion()<7 || msieversion()>=10||msieversion()==0){
+
+        //alert("本申报系统推荐使用浏览器IE 7.0、8.0、9.0，若使用其他浏览器可能会出现异常情况影响填报！")
+        //}
+
+        window.attachEvent("onload", formatloadinit)//added by cjl 2009-5-11 针对textarea中回车过多,进行格式化
+        //-->
+    </script>
+
+    <script language="javascript">
+
+
+        //$与prototype冲突,故jquery脚本使用jQuery前缀
+        $(function () {
+
+
+            $(":text[readonly]").each(function (index) {
+
+                var contentwidth = $(this).attr("value").length * 12
+                var objwidth = $(this).width()
+                if (contentwidth >= objwidth) {
+                    $(this).tooltip({
+                        track: false,
+                        bodyHandler: function () {
+                            return $(this).attr("value")
+
+                        },
+                        showURL: false
+                    })
+                }
+
+            })
+
+        })
+
+    </script>
 </head>
+<body leftmargin="0" topmargin="0" onload="initAd();initFootLayer();">
+<iframe id="DivShim" scrolling="no" frameborder="0"
+        style="position:absolute; top:400px; left:0px; display:none;filter: Alpha(opacity=0);"
+        src="./单位(企业)基本情况表_files/saved_resource.html"></iframe>
 
-<body>
-  <div>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-    <p>天王盖地虎，宝塔镇河妖</p>
-  </div>
+<div id="toolTipLayer" class="tooltip" align="left"></div>
+<div id="sstic_bigTextContainer" class="bigtextcontainer" align="left">
+    <table width="100%">
+        <tbody>
+        <tr>
+            <td>
+                <textarea id="sstic_textContainer" class="textareafield" rows="10"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="sstic_bigTextContainer_button" disabled="">确定</button>&nbsp;<button
+                    id="sstic_bigTextContainer_closebutton" nodisabled="">取消
+            </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a name="titlehash"></a>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<div id="AdLayer"
+     style="background-color: white; position: fixed; width: 100%; top: 0px; z-index: 0; visibility: visible;">
+    <table class="uptable" align="center" width="800" style="margin:0 auto;white-space:nowrap;">
+        <tbody>
+        <tr valign="middle">
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_red.gif" width="14" height="14" align="absbottom"><a
+                    href="javascript:;">基本情况表</a></td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./科研计划项目可行性方案.html">可行性方案</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./劳务费预算明细表.html">劳务费表</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./设备费―购置设备预算明细表.html">设备费表</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./测试化验加工费预算明细表.html">测试化验表</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./材料费预算明细表.html">材料费表</a>
+            </td>
+            <td width="100"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14" align="absbottom"><a
+                    href="./现有仪器设备使用费预算明细表.html">设备改造租赁表</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./项目预算表.html">项目预算表</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_gray.gif" width="14" height="14"
+                                align="absbottom"><a href="javascript:alert(&#39;此项目不涉及实验动物&#39;)">实验动物表</a></td>
+            <td width="86" rowspan="3"><a
+                    href="http://helpcenter.stcsm.sh.gov.cn/helpDoc.asp?Num=I_SH_SR_Feasibility-Plan"
+                    target="_blank"><img src="./单位(企业)基本情况表_files/deng.gif" width="15" height="17" border="0"
+                                         align="absmiddle"> 操作手册</a></td>
+        </tr>
+        <tr valign="middle">
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_gray.gif" width="14" height="14"
+                                align="absbottom"><a href="javascript:alert(&#39;此项目不涉及国际合作&#39;)">国际合作&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./项目承担企业（单位）知识产权情况表.html">知识产权</a>
+            </td>
+            <td width="86"><img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14"
+                                align="absbottom"><a
+                    href="./上海市科研计划项目资助项目经费预算编制说明.html">预算说明</a>
+            </td>
+            <td colspan="6"></td>
+        </tr>
+        <tr>
+            <td colspan="9" style="font-size:12px">图注:<img src="./单位(企业)基本情况表_files/statecolor_red.gif" width="14"
+                                                           height="14" align="absbottom">-当前正在填写的表格 / <img
+                    src="./单位(企业)基本情况表_files/statecolor_gray.gif" width="14" height="14" align="absbottom">-尚未填写的表格 /
+                <img src="./单位(企业)基本情况表_files/statecolor_blue.gif" width="14" height="14" align="absbottom">-已填写的表格
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function changePageConform(url) {
+        var message = "您是否要保存您填写的信息？";
+        if (window.confirm(message)) {
+            document.all.item("topage").value = url;
+            document.all.item("flag").value = "topage";
+            alert(savekxx);
+            tempsave();
+        } else {
+            document.location.replace(url);
+        }
+
+    }
+</script>
+<div id="FootLayer"
+     style="background-color: white; position: fixed; width: 100%; bottom: 0px; height: 24px; z-index: 0; visibility: visible;">
+    <div id="sstic_loadingcontainer" class="loading"></div>
+    <div id="submit_div">
+
+        <script>
+            function xgodeal(vv) {
+                if (vv == "temp" || vv == "continue") {
+
+                    alert(savekxx);
+                } else if (vv == "lock") {
+                    alert(submitkxx);
+
+                }
+                godeal(vv);
+            }
+
+            //内网Word全部打印功能
+            function wordAllPrint(p_id, degdes, tempVer) {
+
+
+                top.location.replace('../otherModule/getPrintPDF.asp?p_id=12014041422414989772&formType=kxx' + tempVer)
+
+            }
+
+        </script>
+
+
+        <table class="uptable" align="center">
+            <tbody>
+            <tr>
+                <td>
+
+                    <button name="Button" value=""
+                            onclick="window.open(&#39;../upload/pic_insert.asp?p_id=12014041422414989772&#39;,&#39;xxx&#39;,&#39;toolbar=no,scrollbars=yes&#39;);"
+                            nodisabled="">查看附件
+                    </button>&nbsp;&nbsp;
+
+
+                    <button name="Button" value=""
+                            onclick="javascript:wordAllPrint(&#39;12014041422414989772&#39;,&#39;&#39;,&#39;1&#39;);"
+                            nodisabled="">全套打印
+                    </button>&nbsp;&nbsp;
+
+
+                    <button name="Button" value="关闭窗口" onclick="parent.window.close();" nodisabled="">关闭窗口</button>
+
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<script language="javascript" src="./单位(企业)基本情况表_files/prototype.js.下载"></script>
+<script language="javascript" src="./单位(企业)基本情况表_files/LinkSelect.js.下载"></script>
+<script language="javascript" src="./单位(企业)基本情况表_files/check.js.下载"></script>
+
+
+<title>单位(企业)基本情况表</title>
+
+<script>
+    elementnotemsg.put("p_orgtagcode", "企业特性最多选5项");
+
+
+</script>
+
+
+<style type="text/css">
+    <!--
+    .STYLE1 {
+        color: #FF0000
+    }
+
+    -->
+</style>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" class="bg">
+    <tbody>
+    <tr>
+        <td width="10" background="./单位(企业)基本情况表_files/cnbj.jpg">&nbsp;</td>
+        <td align="center" valign="top">
+            <div class="bt">单位(企业)基本情况表</div>
+
+            <div class="xbt2"></div>
+
+            <div class="xbt2"></div>
+            <p>&nbsp;</p>
+            <form action="https://www1.stcsm.sh.gov.cn/nkyydb2014/kxx01/dwform_proj.asp?p_id=12014041422414989772"
+                  method="POST" name="form1">
+
+                <p class="subtitle">单位（企业）基本情况表</p>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="btable">
+                    <tbody>
+                    <tr>
+                        <td width="15%" class="theadbg">单位（企业）名称</td>
+                        <td colspan="3"><input name="p_org" type="text" id="p_org" value="上海大学" readonly=""
+                                               class="inputtextreadonly"></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">单位（企业）代码</td>
+                        <td width="35%"><input name="p_orgcode" type="text" id="p_orgcode" value="42502637-X"
+                                               maxlength="10" onblur="check_orgcode(this)" readonly=""
+                                               class="inputtextreadonly"></td>
+                        <td width="15%" class="theadbg">电子邮件</td>
+                        <td width="35%"><input name="p_email" type="text" id="p_email" value="jlshen@staff.shu.edu.cn"
+                                               onblur="check_email(this)" readonly="" class="inputtextreadonly"></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">通 讯 地 址</td>
+                        <td colspan="3"><input name="p_add" type="text" id="p_add" value="延长路149号"
+                                               onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">邮 编</td>
+                        <td><input name="p_pcode" type="text" id="p_pcode" value="200072" onblur="check_post(this)"
+                                   readonly="" class="inputtextreadonly"></td>
+                        <td class="theadbg">注册地行政区划</td>
+                        <td><input name="p_zcadd" type="text" id="p_zcadd" value="宝山区" onblur="reset_form_error_mark()"
+                                   readonly="" class="inputtextreadonly"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="theadbg">推荐渠道</td>
+                        <td>
+
+                            <select id="p_tjqd" name="p_tjqd" onblur="reset_form_error_mark()" disabled="">
+                                <option value="">请选择</option>
+
+                                <option value="001">行业主管部门推荐</option>
+
+                                <option value="002">投资机构推荐</option>
+
+                                <option value="003">产业园区和基地推荐</option>
+
+                                <option value="004">行业协会和创新联盟推荐</option>
+
+                                <option value="005" selected="">企事业单位自荐</option>
+
+                            </select></td>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <td class="theadbg">开户名</td>
+                        <td><input name="p_zhangname" type="text" id="p_zhangname" value="上海大学"
+                                   onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly"></td>
+                        <td class="theadbg">开户银行</td>
+                        <td><input name="p_bank" type="text" id="p_bank" value="中国农业银行上海市宝山区大场支行"
+                                   onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly"></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">帐号</td>
+                        <td><input name="p_account" type="text" id="p_account" value="033270-00801210489"
+                                   onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly"></td>
+                        <td class="theadbg">&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="btable">
+
+                    <tbody>
+                    <tr>
+                        <td colspan="4" class="theadbg">
+                            <div align="center"><strong>单位（企业）法人代表情况</strong></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="15%" class="theadbg">姓名</td>
+                        <td width="35%"><input name="p_faren" type="text" id="p_faren" value="罗宏杰"
+                                               onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly">
+                        </td>
+                        <td width="15%" class="theadbg">性别</td>
+                        <td width="35%"><select name="p_frsex" id="p_frsex"
+                                                onchange="reset_form_error_mark();check_personinfo(document.all.p_fridtag,document.all.p_frid,document.all.p_frsex,document.all.p_frbirthdate)"
+                                                disabled="">
+                            <option value="">请选择</option>
+                            <option value="男" selected="">男</option>
+                            <option value="女">女</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">证件类型</td>
+                        <td><select id="p_fridtag" name="p_fridtag"
+                                    onchange="reset_form_error_mark();check_personid(document.all.p_fridtag,document.all.p_frid,document.all.p_frsex,document.all.p_frbirthdate)"
+                                    disabled="">
+                            <option value="">请选择</option>
+                            <option value="1" selected="">身份证</option>
+                            <option value="2">护照</option>
+                            <option value="3">军官证</option>
+                        </select></td>
+                        <td class="theadbg">证件号码</td>
+                        <td><input name="p_frid" type="text" id="p_frid" value="610402195611241219"
+                                   onblur="check_personid(document.all.p_fridtag,document.all.p_frid,document.all.p_frsex,document.all.p_frbirthdate)"
+                                   readonly="" class="inputtextreadonly"></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">出生日期</td>
+                        <td><input name="p_frbirthdate" type="text" id="p_frbirthdate" value="1956-11-24"
+                                   onfocus="setday(this,this);" calendar=""
+                                   onblur="check_date(this);check_personinfo(document.all.p_fridtag,document.all.p_frid,document.all.p_frsex,document.all.p_frbirthdate)"
+                                   readonly="" class="inputtextreadonly"></td>
+                        <td class="theadbg">最高学历</td>
+                        <td><input name="p_frxl" type="text" id="p_frxl" value="博士" onblur="reset_form_error_mark()"
+                                   readonly="" class="inputtextreadonly"></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">任现职时间</td>
+                        <td><input name="p_frdate" type="text" id="p_frdate" value="2012.2"
+                                   onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly"></td>
+                        <td class="theadbg">电话</td>
+                        <td><input name="p_frtel" type="text" id="p_frtel" value="66132222"
+                                   onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="btable">
+
+                    <tbody>
+                    <tr>
+                        <td colspan="4" class="theadbg">
+                            <div align="center"><strong>联系人情况</strong></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="15%" class="theadbg">姓名</td>
+                        <td width="35%"><input name="p_lxren" type="text" id="p_lxren" value="沈金林"
+                                               onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly">
+                        </td>
+                        <td width="15%" class="theadbg">电话</td>
+                        <td width="35%"><input name="p_lxtel" type="text" id="p_lxtel" value="66136203"
+                                               onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">传真</td>
+                        <td><input name="p_lxfax" type="text" id="p_lxfax" value="66136203"
+                                   onblur="reset_form_error_mark()" readonly="" class="inputtextreadonly"></td>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="btable">
+
+                    <tbody>
+                    <tr>
+                        <td width="15%" class="theadbg">科研部门电子邮件</td>
+                        <td width="35%"><input name="p_kyemail" type="text" id="p_kyemail"
+                                               value="jlshen@staff.shu.edu.cn" onblur="check_email(this)" readonly=""
+                                               class="inputtextreadonly"></td>
+                        <td width="15%" class="theadbg">财务部门电子邮件</td>
+                        <td width="35%"><input name="cw_email" type="text" id="cw_email"
+                                               value="caiwuchu@derpartment.shu.edu.cn" onblur="check_email(this)"
+                                               readonly="" class="inputtextreadonly"></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">单位隶属</td>
+                        <td>
+                            <select name="p_area" onchange="reset_form_error_mark()" disabled="">
+                                <option value="">请选择</option>
+                                <option value="01">01.中央单位</option>
+                                <option value="02" selected="">02.地方单位</option>
+                            </select></td>
+                        <td class="theadbg">注册登记类型</td>
+                        <td>
+                            <select name="p_class" onchange="reset_form_error_mark()" disabled="">
+                                <option value="">请选择</option>
+                                <option value="01">01.国有企业</option>
+                                <option value="02">02.集体企业</option>
+                                <option value="03">03.私营企业</option>
+                                <option value="04">04.联营企业</option>
+                                <option value="05">05.股份合作企业</option>
+                                <option value="06">06.外商投资企业</option>
+                                <option value="07">07.有限责任公司</option>
+                                <option value="08">08.股份有限公司</option>
+                                <option value="09">09.港、澳、台商投资企业</option>
+                                <option value="10">10.国家机关</option>
+                                <option value="11" selected="">11.高等院校</option>
+                                <option value="12">12.研究院所</option>
+                                <option value="13">13.社会团体</option>
+                                <option value="14">14.其他</option>
+                            </select></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="btable">
+                    <tbody>
+                    <tr>
+                        <td width="22%" class="theadbg">单位职工总数(人)</td>
+                        <td width="28%"><input name="p_reshu" type="text" id="p_reshu" value="5546"
+                                               onblur="if(check_num(this)){checkWorkerB()}" class="textfieldRight"
+                                               readonly=""></td>
+                        <td width="22%" class="theadbg">大专以上(人)</td>
+                        <td width="28%"><input name="p_dazhuan" type="text" id="p_dazhuan" value="3483"
+                                               onblur="if(check_num(this)){if(checkWorker(this)){checkWorkerC(1)}}"
+                                               class="textfieldRight" readonly=""></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">研究开发(人)</td>
+                        <td><input name="p_dev" type="text" id="p_dev" value="2500"
+                                   onblur="if(check_num(this)){checkWorker(this)}" class="textfieldRight" readonly="">
+                        </td>
+                        <td colspan="2">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">单位中层以上管理人员总数(人)</td>
+                        <td><input name="p_gl" type="text" id="p_gl" value="200"
+                                   onblur="if(check_num(this)){if(checkWorker(this)){checkWorkerC(3)}}"
+                                   class="textfieldRight" readonly=""></td>
+                        <td class="theadbg">其中大学本科以上人员数(人)</td>
+                        <td><input name="p_benke" type="text" id="p_benke" value="190"
+                                   onblur="if(check_num(this)){if(checkWorker(this)){checkWorkerC(2)}}"
+                                   class="textfieldRight" readonly=""></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="btable">
+                    <tbody>
+                    <tr>
+                        <td colspan="4" class="theadbg">
+                            <div align="center"><strong>企业上年末财务情况，新企业填写申报前一月的财务情况</strong><br>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="22%" class="theadbg">企业注册资金(万元)</td>
+                        <td width="28%"><input name="p_money" type="text" id="p_money" value="0.0"
+                                               class="textfieldRight" onblur="check_numdotformat(this)" readonly="">
+                        </td>
+                        <td width="22%" class="theadbg">其中外资(含港澳台)比例(%)</td>
+                        <td width="28%"><input name="p_ratio" type="text" id="p_ratio" value="0.0"
+                                               class="textfieldRight" onblur="check_proportion(this)" readonly=""></td>
+                    </tr>
+
+                    <tr>
+                        <td class="theadbg">企业注册时间</td>
+                        <td><input name="p_orgDate" type="text" id="p_orgDate" value="2001-05-22" calendar=""
+                                   onblur="check_date(this);" readonly="" class="inputtextreadonly"></td>
+                        <td class="theadbg">&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">企业总收入(万元)</td>
+                        <td><input name="p_zmoney" type="text" id="p_zmoney" value="0.0" class="textfieldRight"
+                                   onblur="check_numdotformat(this)" readonly=""></td>
+                        <td class="theadbg">企业净利润(万元)</td>
+                        <td><input name="p_profit" type="text" id="p_profit" value="0.0" class="textfieldRight"
+                                   onblur="check_numdotformat(this,1,true)" readonly=""></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">产品销售收入(万元)</td>
+                        <td><input name="p_sale" type="text" id="p_sale" value="0.0" class="textfieldRight"
+                                   onblur="check_numdotformat(this)" readonly=""></td>
+                        <td class="theadbg">企业创汇总额(万美元)</td>
+                        <td><input name="p_wmoney" type="text" id="p_wmoney" value="0.0" class="textfieldRight"
+                                   onblur="check_numdotformat(this)" readonly=""></td>
+                    </tr>
+                    <tr>
+                        <td class="theadbg">总资产(万元)</td>
+                        <td><input name="p_zcaptial" type="text" id="p_zcaptial" value="0.0" class="textfieldRight"
+                                   onblur="check_numdotformat(this)" readonly=""></td>
+                        <td class="theadbg">总负债(万元)</td>
+                        <td><input name="p_zdebt" type="text" id="p_zdebt" value="0.0" class="textfieldRight"
+                                   onblur="check_numdotformat(this)" readonly=""></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table width="800" border="0" align="center" cellpadding="0" cellspacing="0" class="btable">
+
+                    <tbody>
+                    <tr>
+                        <td width="15%" class="theadbg">企业特性</td>
+                        <td width="85%" id="qytx_td" onblur="reset_form_error_mark()">0．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="0"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            国家科技产业化基地内企业 5．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="5"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            科研院所整体转制企业<br>
+                            1．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="1"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            认定的高新技术企业　　　 6．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="6"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            国家高新区内的企业<br>
+                            2．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="2"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            高等院校办的企业 　　　　7．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="7"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            孵化器内的企业<br>
+                            3．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="3"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            科研院所办的企业 　　　　8．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="8" checked=""
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            其他<br>
+                            4．
+                            <input onmouseover="elementMouseOver()" onmouseout="elementMouseOut()" name="p_orgtagcode"
+                                   type="checkbox" id="p_orgtagcode" value="4"
+                                   onclick="checkMaxMultiCheckbox(this,p_orgtagcode,5)" disabled=""
+                                   class="inputothertype">
+                            海外归国留学人员办的企业
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">单位需要说明的问题：
+                            <textarea name="p_abstract" cols="100" rows="10" id="p_abstract"
+                                      onblur="reset_form_error_mark()" readonly="">/</textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td class="theadbg">密码</td>
+                        <td id="psw" onblur="reset_form_error_mark()">jiangfeng&nbsp;</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <p><br>
+                    <input name="p_id" type="hidden" id="p_id" value="12014041422414989772" allowempty="" readonly=""
+                           class="inputothertype">
+                    <input name="flag" type="hidden" id="flag" allowempty="" readonly="" class="inputothertype">
+                    <input type="hidden" name="topage" value="/nkyydb2014/kxx01/dwform_proj.asp" readonly=""
+                           class="inputothertype">
+                </p>
+            </form>
+            <p>&nbsp;</p>
+        </td>
+        <td width="15" background="./单位(企业)基本情况表_files/cnbj2.jpg">&nbsp;</td>
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    function godeal(vv) {	//按纽处理
+
+        form1.flag.value = vv;
+
+        //alert(vv=="continue")
+//	document.all.p_tag.value = getSelectArrayValue(selects)//新增加
+//
+//	if (vv=="lock"||vv=="temp"||vv=="continue"){
+//		if(document.form1.p_tag.value==""||!isLeafSelected(selects))
+//		{
+//		//pagecontentmanageobj.markErrorElement(document.form1.s1,"请选择计划类型！");
+//		alert("请选择科研计划项目类别至最小类别！");
+//		//document.form1.p_tag.focus();
+//		return;
+//		}
+//	}
+
+
+        switch (vv) {
+            case "lock": {	//正式提交 锁定此表
+
+                if (!alertAfterModifyBEdate()) {
+                    return false;
+                }
+                ;
+
+                var canSubmit = true;
+                form1.action = "dwform_proj_deal.asp";
+
+                if (g_allowJavascript) {
+                    if (!check_form_not_empty()) {
+                        canSubmit = false;
+                    } // 非空校验
+                    if (!isElementsValueEmpty("p_orgtagcode", "请至少选择一个！")) {
+                        canSubmit = false;
+                    }  //其他费用的填写是否符合约束
+                    if (!canSubmit) {
+                        alert(alert_befor_lock);
+                        return false; //以上check 至少有1个没有 pass
+                    }
+                }
+
+                state = confirm(confirm_lock);
+                if (state) {
+                    form1.submit();
+                } else return;
+                break;
+            }
+            case "temp": {	//临时保存  跳回主界面
+
+                if (!alertAfterModifyBEdate()) {
+                    return false;
+                }
+                ;
+
+                if (document.form1.p_orgcode.value == "") {
+                    pagecontentmanageobj.markErrorElement(document.form1.p_orgcode, "您必须填写机构代码！");
+                    document.form1.p_orgcode.focus();
+                    return false;
+                }
+                form1.action = "dwform_proj_deal.asp";
+                state = confirm(confirm_temp);
+                if (state) {
+                    form1.submit();
+                } else return;
+                break;
+            }
+            case "continue": {	//临时保存  不跳
+
+                if (!alertAfterModifyBEdate()) {
+                    return false;
+                }
+                ;
+                if (document.form1.p_orgcode.value == "") {
+                    pagecontentmanageobj.markErrorElement(document.form1.p_orgcode, "您必须填写机构代码！");
+                    document.form1.p_orgcode.focus();
+                    return false;
+                }
+                form1.action = "dwform_proj_deal.asp";
+                state = confirm(confirm_continue);
+                if (state) {
+                    form1.submit();
+                } else return;
+                break;
+            }
+            case "print": {	//打印此表 应该跳出新窗口
+                //form1.action="kyydb_form3_print.asp";
+                state = confirm(confirm_print);
+                if (state) {
+                    window.print();
+                } else return;
+                break;
+            }
+            case "reload": {	//重载此页面
+                form1.reset();
+                break;
+            }
+            default: {	//退出返回
+                location.replace("../kxx01/list.asp?p_id=" + vv);
+                break;
+            }
+        }
+    }
+
+
+    //≤单位职工总数
+    function checkWorker(vv) {
+
+        if (chg2dbl(form1.p_reshu.value - 0) < chg2dbl(vv.value - 0)) {
+
+            pagecontentmanageobj.markErrorElement(vv, "必须≤单位职工总数!");
+            vv.value = "";
+            return false;
+
+        } else {
+
+            return true;
+        }
+
+
+    }
+
+
+    function tempsave() {
+
+//	document.all.p_tag.value = getSelectArrayValue(selects)//新增加
+//
+//	if(document.form1.p_tag.value==""||!isLeafSelected(selects))
+//		{
+//		//pagecontentmanageobj.markErrorElement(document.form1.s1,"请选择计划类型！");
+//		alert("请选择科研计划项目类别至最小类别！");
+//		//document.form1.p_tag.focus();
+//		return;
+//		}
+
+        form1.action = "dwform_proj_deal.asp";
+        form1.submit();
+    }
+
+
+    function alertAfterModifyBEdate() {
+
+
+        return true;
+
+
+    }
+
+    function checkWorkerB() {
+
+        if (chg2dbl(form1.p_reshu.value - 0) < chg2dbl(form1.p_dazhuan.value - 0)) {
+
+            pagecontentmanageobj.markErrorElement(form1.p_reshu, "大专以上人数必须≤单位职工总数!");
+            form1.p_reshu.value = "";
+            return false;
+        }
+        if (chg2dbl(form1.p_reshu.value - 0) < chg2dbl(form1.p_dev.value - 0)) {
+
+            pagecontentmanageobj.markErrorElement(form1.p_reshu, "研究开发人数必须≤单位职工总数!");
+            form1.p_reshu.value = "";
+            return false;
+        }
+
+
+        if (chg2dbl(form1.p_reshu.value - 0) < chg2dbl(form1.p_gl.value - 0)) {
+
+            pagecontentmanageobj.markErrorElement(form1.p_reshu, "单位中层以上管理人员总数≤单位职工总数!");
+            form1.p_reshu.value = "";
+            return false;
+        }
+        if (chg2dbl(form1.p_reshu.value - 0) < chg2dbl(form1.p_benke.value - 0)) {
+
+            pagecontentmanageobj.markErrorElement(form1.p_reshu, "其中大学本科以上人员数≤单位职工总数!");
+            form1.p_reshu.value = "";
+            return false;
+        }
+        return true;
+    }
+
+    function checkWorkerC(tag) {
+
+        if (tag == 1) {
+
+            if (chg2dbl(form1.p_dazhuan.value - 0) < chg2dbl(form1.p_benke.value - 0)) {
+
+                pagecontentmanageobj.markErrorElement(form1.p_dazhuan, "其中大学本科以上人数必须≤大专以上人数!");
+                form1.p_dazhuan.value = "";
+                return false;
+            }
+
+
+        }
+
+        if (tag == 2) {
+            if (chg2dbl(form1.p_dazhuan.value - 0) < chg2dbl(form1.p_benke.value - 0)) {
+
+                pagecontentmanageobj.markErrorElement(form1.p_benke, "其中大学本科以上人数必须≤大专以上人数!");
+                form1.p_benke.value = "";
+                return false;
+            }
+            if (chg2dbl(form1.p_gl.value - 0) < chg2dbl(form1.p_benke.value - 0)) {
+
+                pagecontentmanageobj.markErrorElement(form1.p_benke, "其中大学本科以上人数必须≤单位中层以上管理人员总数!");
+                form1.p_benke.value = "";
+                return false;
+            }
+        }
+
+        if (tag == 3) {
+            if (chg2dbl(form1.p_gl.value - 0) < chg2dbl(form1.p_benke.value - 0)) {
+
+                pagecontentmanageobj.markErrorElement(form1.p_gl, "其中大学本科以上人数必须≤单位中层以上管理人员总数!");
+                form1.p_gl.value = "";
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+
+</script>
+<script language="JavaScript">
+
+    function todonext(othis) {
+        url = "logincount.asp"
+        pars = "p_tag=" + othis.value
+        selectobj = othis
+        var myAjax = new Ajax.Request(
+            url,
+            {method: 'get', parameters: pars, onComplete: showResponse}
+        );
+
+
+    }
+
+    function showResponse(therequest) {
+        var countnum = (therequest.responseText)
+        document.all.catashowdiv.innerHTML = "&nbsp;&nbsp;类别" + selectobj.options[selectobj.selectedIndex].text + "已申报" + countnum + "项"
+
+//	alert(selectobj.options[selectobj.selectedIndex].text+countnum)
+
+    }
+
+</script>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+<script>setPageDisable();</script>
+<script>
+    function changePageConform(url) {
+        document.location.replace(url);
+
+    }
+</script>
 </body>
-
 </html>

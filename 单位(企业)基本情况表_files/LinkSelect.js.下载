@@ -1,0 +1,290 @@
+/*
+文档编写：李伟诚
+最后修改日期：2007/8/15 15:42
+****************使用方法************************
+导入JS库以及功能文件
+<SCRIPT LANGUAGE="JavaScript" src="prototype.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="LinkSelect.js"></SCRIPT>
+
+拼接结构字符串 
+格式为 id,pid,value,name
+
+页面放置对应层次的下拉框
+
+<select id="select1"></select>
+<select id="select2"></select>
+<select id="select3"></select>
+
+页面调用初始化方法
+var selectarray = new Array(0);
+selectarray[0] = document.all.select1;
+selectarray[1] = document.all.select2;
+selectarray[2] = document.all.select3;
+selectstructstr = 拼接好的结构字符串
+selectedvalue = 已选中值
+初始化方法
+loadselectarray(selectarray,selectstructstr,selectedvalue);
+
+功能方法
+
+判断级联菜单是否选择到了叶子节点
+isLeafSelected(selectarray)
+
+返回级联菜单选中值(追溯)
+getSelectArrayValue(selectarray)
+
+
+
+
+
+
+
+
+
+*/
+var Class = {
+    //创建类
+    create: function() {
+        return function() {
+            this.initialize.apply(this, arguments);
+        };
+    }
+};
+
+
+var LinkSelect = Class.create();
+LinkSelect.prototype = {
+	initialize: function(selectobj,linkSelectObj,optionsArray){
+	this.selectRef = selectobj//document.getElementById(selectId)
+	this.linkSelectObj = linkSelectObj;
+	this.optionsArray = optionsArray
+	var othis = this
+	this.selectRef.onchange = function(){
+		selectValue = othis.selectRef.value
+		//alert(selectValue)
+		if(selectValue=="noneselect"){
+			////alert("innoneselectcheck")
+			othis.hideSelect(othis.linkSelectObj)
+		}
+		else{
+			if(othis.linkSelectObj!=null){
+				index = othis.selectRef.selectedIndex
+				selectOption = othis.selectRef.options[index]
+				id = selectOption.id
+				othis.fillInLinkRefSelect(id)
+				if(othis.linkSelectObj.linkSelectObj!=null){
+					othis.hideSelect(othis.linkSelectObj.linkSelectObj)	
+				}
+			}
+			
+				
+		}
+		//todonext(othis.selectRef)
+	}
+	},
+	hideSelect:function(obj){
+		
+		if(obj!=null){
+			obj.selectRef.style.display = "none"
+			if(obj.linkSelectObj!=null){
+				this.hideSelect(obj.linkSelectObj)
+			}
+		}
+		
+	},
+	
+	loadoption:function(iarray){
+		targetSelect =  getEmpertySelect(this.selectRef)
+		var baseoption = new Option()
+		baseoption.text = "请选择"
+		baseoption.value = "noneselect"
+		targetSelect.options.add(baseoption)
+		for(var i=0;i<this.optionsArray.length;i++){
+			if(getOptionPid(this.optionsArray[i]) == "0")	{
+				var thisselectid = getOptionId(this.optionsArray[i]);
+				//var pid = "0";
+				var value = getOptionTheValue(this.optionsArray[i]);
+				var text = getOptionText(this.optionsArray[i]);
+				var option = new Option()
+				option.text = text
+				option.id = thisselectid
+				option.value = value
+				targetSelect.options.add(option)
+				//targetSelect.options[targetSelect.options.length] = option
+			}
+		}
+		//初始化级联新增
+		if(iarray!=null){
+			iarray.reverse()
+			linkobj = this
+			
+			for(var i=0;i<iarray.length;i++){
+				
+				makeselect(linkobj.selectRef.options,getOptionId(iarray[i]),linkobj)
+				if(i+1<iarray.length){
+					var selecedtid =getOptionId(iarray[i])
+					linkobj.fillInLinkRefSelect(selecedtid)
+				}
+				////alert(i+" loopend")
+				
+				linkobj = linkobj.linkSelectObj
+				
+			}
+			
+		}
+		
+		
+	},
+	fillInLinkRefSelect:function(optionPid){
+		var targetSelect =  getEmpertySelect(this.linkSelectObj.selectRef)
+		var baseoption = new Option()
+		baseoption.text = "请选择"
+		baseoption.value = "noneselect"
+		targetSelect.options.add(baseoption)
+		for(var i=0;i<this.optionsArray.length;i++){
+			if(getOptionPid(this.optionsArray[i]) == optionPid)	{
+				var optionId = getOptionId(this.optionsArray[i]);
+				var value = getOptionTheValue(this.optionsArray[i]);
+				var text = getOptionText(this.optionsArray[i]);
+				var option = new Option()
+				option.text = text
+				option.id = optionId
+				option.value = value
+				targetSelect.options.add(option)
+			}
+		}
+		if(targetSelect.options.length>1){
+			targetSelect.style.display = "block"
+		}
+		else{
+			targetSelect.style.display = "none"
+		}
+
+	}
+}
+
+function getEmpertySelect(selectObj){
+	if(selectObj.options.length>0){
+		selectObj.options.remove(0)
+		getEmpertySelect(selectObj)
+	}	
+	return selectObj; 
+	
+}
+function getOptionId(str){
+	return str.split(",")[0]
+}
+function getOptionPid(str){
+	return str.split(",")[1]
+}
+function getOptionTheValue(str){
+	return str.split(",")[2]
+}
+function getOptionText(str){
+	return str.split(",")[3]
+}
+
+
+function oldloadselectarray(selectarray,selectStr){
+var oarray = selectStr.split(";")
+var linktemp = null
+	for(var i=selectarray.length-1;i>-1;i--){
+		var link =  new LinkSelect(selectarray[i],linktemp,oarray)
+		linktemp = link
+	}
+	linktemp.loadoption()
+}
+
+function getSelectArrayValue(selectarray){
+	var value = ""
+	for(var i=selectarray.length-1;i>-1;i--){
+		if(selectarray[i].style.display!="none"&&selectarray[i].value!="noneselect"){
+			value = selectarray[i].value
+			break;
+		}
+	}
+	return value
+}
+
+//级联初始化新增
+function makeselect(oarray,id,linkobjref){
+
+	for(var i=0;i<oarray.length;i++){
+
+		if(oarray[i].id==id)	
+		oarray[i].selected = true
+		
+	}
+	if(linkobjref!=null&&linkobjref.linkSelectObj!=null){
+		linkobjref.fillInLinkRefSelect(id)
+		if(linkobjref.linkSelectObj.linkSelectObj!=null){
+					linkobjref.hideSelect(linkobjref.linkSelectObj.linkSelectObj)	
+		}
+	}
+	
+}
+function getoptionbyid(id,oarray){
+	for(var i=0;i<oarray.length;i++){
+		if(getOptionId(oarray[i])==id)	{
+			return 	oarray[i]
+		}
+	}
+	return null
+	
+}
+function toinitarray(id,oarray,iarray){
+	if(getoptionbyid(id,oarray)!=null){
+		var optionstr = getoptionbyid(id,oarray)
+		iarray[iarray.length] = optionstr
+		toinitarray(getOptionPid(optionstr),oarray,iarray)
+	
+	}
+
+}
+
+function loadselectarray(selectarray,selectStr,selectedId){
+	var oarray = selectStr.split(";")
+	var initarray = new Array()
+	var linktemp = null
+	for(var i=selectarray.length-1;i>-1;i--){
+		var link =  new LinkSelect(selectarray[i],linktemp,oarray)
+		linktemp = link
+	}
+	
+	if(selectedId!=null){
+
+		toinitarray(selectedId,oarray,initarray)
+		linktemp.loadoption(initarray)
+	}
+	else{
+		linktemp.loadoption()	
+	}
+	
+}
+function isLeafSelected(selectarray){//判断当前选中值是否是叶子节点
+	var isleaf = false
+	for(var i=selectarray.length-1;i>-1;i--){
+		if(selectarray[i].style.display!="none"){
+			if(selectarray[i].value!="noneselect"){
+				isleaf = true
+					break;
+				
+			}else{
+				isleaf = false
+				break;
+			}
+		
+		}
+	}
+	return isleaf;
+}
+function getSelectArrayText(selectarray){
+	var text = ""
+	for(var i=selectarray.length-1;i>-1;i--){
+		if(selectarray[i].style.display!="none"&&selectarray[i].value!="noneselect"){
+			text = selectarray[i].options[selectarray[i].selectedIndex].text
+			break;
+		}
+	}
+	return text
+}

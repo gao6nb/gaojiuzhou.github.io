@@ -1,0 +1,27 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+
+<HEAD>
+    <TITLE></TITLE>
+    <META content="text/html; charset=utf-8" http-equiv=Content-Type>
+    <LINK rel=stylesheet type=text/css href="image/default.css">
+    <META name=GENERATOR content="MSHTML 8.00.6001.18876">
+</HEAD>
+
+<BODY>
+    <table align="center">
+        <tr>
+            <td height='600'>
+                <div>
+                    <img width="645" height="424" src="http://helpcenter.stcsm.sh.gov.cn/image/iwallErrorInfoImg.png" align="center" border="0" usemap="#backit">
+                    <map name="backit">
+					<area shape="rect" coords="0,240,645,270" href="javascript:history.back(-1)" target="_self" alt="返回">
+				</map>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div align="center"></div>
+</BODY>
+
+</HTML>

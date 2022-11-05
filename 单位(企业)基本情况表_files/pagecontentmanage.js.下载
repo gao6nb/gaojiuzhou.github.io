@@ -1,0 +1,321 @@
+/*
+文档编写 CJL
+最后修改日期：2008/8/1 
+****************使用方法************************
+1.初始化对象 
+	var pagecontentmanageobj = new pagecontentmanage() 
+2.初始化报错信息以及提示信息hashtable
+	elementerrormsg.put("对象name属性","报错信息")
+	elementnotemsg.put("对象name属性","报错信息")
+3.报错标注对象
+	pagecontentmanageobj.markErrorElement(对象,报错信息)
+4.报错标注取消
+	restelementmousemovmentevent(对象)
+5.设置提示信息
+	onMouseOver="elementMouseOver()"  onMouseOut="elementMouseOut()"
+
+
+****************函数列表和函数定义************************
+
+************************
+
+************************
+
+*/
+
+var elementerrormsg = new  JSHastable()//elementerrormsg 存放 控件name属性 业务校验错误信息 键值对
+var elementnotemsg =  new  JSHastable()
+function pagecontentmanage(){
+this.markelement = new Array()
+//this.errorcolor = "#FF0000"
+this.times = 0 
+this.imgpath = ""
+this.loadingimg = ""
+this.markerrorclass = ""
+this.errorcolor = ""
+//this.imgpath = "../image/" //默认图片参数用于pagecontentmanage中相关图片路径,可以直接通过属性设置修改
+//this.loadingimg = "loading.gif" //默认载入中图片,可以直接通过属性设置修改
+this.submitContainer = null;
+this.loadingContainer = null;
+this.firstmarkerfouse = false; //首个标红控件是否获得焦点
+this.firstmarkerfouseelement = null;
+
+
+
+//this.hintcolor = "#FFFF00"
+
+	this.markErrorElement = function(obj,errormessage){//errormessage 存放一般报错信息,例如格式校验错误
+
+		obj.style.backgroundColor = this.errorcolor;
+		//alert("mark")
+		errormessage = "<span class=tooltip_text_red>错误：</span><br>"+errormessage
+		
+		obj.onmouseover = function(){
+			if(errormessage==null){//若不启用一般报错信息,则使用hashtable中的业务报错信息
+				if(elementerrormsg.get(getObjNameOrId(obj))!=null){
+					//alert(getObjNameOrId(obj))
+					toolTip(elementerrormsg.get(getObjNameOrId(obj)))
+				}
+			}else{
+				
+				
+				toolTip(errormessage)
+			}
+			
+		}
+		obj.onmouseout = function(){
+			toolTip()
+		}
+		if(event.type=="keyup" || event.type=="keydown"){
+			obj.fireEvent("onmouseover");
+		}
+		
+		if(obj.onfocusout==null && obj.onblur==null && obj.onchange==null){ 
+		// 页面非空校验时,一些没有校验的输入域因没有填写而被标红后,当该输入域失去焦点时，重置标红
+			
+			obj.onfocusout = function(){
+				//alert("onfocusout")
+				restelementmousemovmentevent(obj)	
+				
+			}
+			obj.onblur = function(){
+					//						alert("onblur")
+				restelementmousemovmentevent(obj)	
+				
+			}
+			obj.onchange = function(){
+						//	alert("onchange")
+				restelementmousemovmentevent(obj)	
+				
+			}
+		}else if(obj.onchange!=null){
+		methodsrc = eventappendmethod(obj.onchange,"restelementmousemovmentevent(event.srcElement)")
+		obj.onchange = new Function (methodsrc);
+
+		}
+		
+		this.focustoelement(obj);//定位到锚点
+
+	
+	}
+	this.focustoelement = function(obj){
+		if(this.firstmarkerfouseelement==null){//第一标红对象尚未焦点
+	//alert("tofocus")
+	//alert(getElementPos(obj))
+			var jasonxy = getElementPos(obj)
+			var showY = jasonxy.y-70>0?jasonxy.y-70:0
+			this.firstmarkerfouseelement = obj
+			window.scrollTo(jasonxy.x,showY);
+			
+		}else{
+			var jasonxy = getElementPos(this.firstmarkerfouseelement)
+			var showY = jasonxy.y-70>0?jasonxy.y-70:0
+			//this.firstmarkerfouseelement = obj
+			window.scrollTo(jasonxy.x,showY);
+				
+			
+		}
+	
+		//}
+	}
+
+	this.markNoticeElement = function(obj,noticemessage){//noticemessage 存放一般提示信息
+		obj.onmouseover = function(){
+			if(noticemessage==null){//若不启用一般报错信息,则使用hashtable中的业务报错信息
+				if(elementnotemsg.get(getObjNameOrId(obj))!=null){
+					//alert(getObjNameOrId(obj))
+					toolTip(elementnotemsg.get(getObjNameOrId(obj)))
+				}
+			}else{
+				toolTip(noticemessage)
+			}
+			
+		}
+		obj.onmouseout = function(){
+			toolTip()
+		}
+	
+	
+	}
+	
+	this.hideSubmitContainer = function(loadingcontainer,submitcontainer,message){//message 可以不提供
+		
+		this.submitContainer = submitcontainer
+		this.loadingContainer = loadingcontainer
+		var showmessage = message
+		if(showmessage==null){
+			showmessage = "系统后台处理中,请稍后"	
+		}
+		var displayobj = this.submitContainer
+		this.loadingContainer.innerHTML = "<img src='"+this.imgpath+this.loadingimg+"'> "+showmessage
+		this.loadingContainer.style.display = "block"
+		this.submitContainer.style.display = "none"
+		
+	
+	}
+	this.showSubmitContainer = function(){
+		this.submitContainer.style.display = "block"
+		this.loadingContainer.style.display = "none"
+	}
+	this.focusOnFirst = function (obj) { // 定位输入域
+		if(obj!=null){
+			obj.focus()	
+		}else{
+			if (document.forms.length > 0) {
+				for (var i=0; i < document.forms[0].elements.length; i++) {
+					var oField = document.forms[0].elements[i];
+					if (oField.type != "hidden") {
+						oField.focus();
+						return;
+					}
+				}
+			}
+		}
+	}
+
+
+
+}
+
+
+
+
+function setelementmousemovment(obj){
+
+	if(obj == null){
+		obj = event.srcElement		
+	}
+	obj.style.backgroundColor = "white";
+	obj.onmouseover = elementMouseOver
+	obj.onmouseout = elementMouseOut
+	pagecontentmanageobj.firstmarkerfouseelement = null
+	
+
+}
+
+function restelementmousemovmenteventbystr(str){
+	var objs = str.split(",")
+	for(var i=0;i<objs.length;i++){
+		var obj = eval("document.all."+objs[i])
+		if(obj!=null){
+			if(obj.length){
+				
+					setelementmousemovment(getParentNodeOfElement("td",obj[0]))	
+					
+				
+				
+			}else{
+				if(obj.type!="hidden")	{
+					setelementmousemovment(obj)		
+				}else{
+					setelementmousemovment(getParentNodeOfElement("td",obj))
+				}
+			}	
+		}
+	}
+	
+}
+
+function restelementmousemovmentevent(obj){
+		
+		setelementmousemovment(obj)
+	
+		toolTip()
+	
+}
+
+function elementMouseOver(){
+	var obj = event.srcElement		
+	//obj.style.background='#99ccff'
+	if(!elementMouseOverUserDefine()){
+		return;
+	}
+	if(elementnotemsg.get(obj.id)!=null){
+		toolTip(elementnotemsg.get(obj.id))
+	}
+	else if(elementnotemsg.get(obj.name)!=null){
+		toolTip(elementnotemsg.get(obj.name))
+	}
+}
+
+
+function elementMouseOut(){
+	var obj = event.srcElement		
+	//if(elementnotemsg.get(getObjNameOrId(obj))!=null){
+	toolTip()
+	//}
+}
+
+
+
+function elementMouseOverUserDefine(){
+
+	return true;
+
+}
+
+
+function getObjName(obj){
+	return obj.name
+}
+
+function getObjId(obj){
+	return obj.Id
+}
+
+
+
+
+function getObjNameOrId(obj){
+	if(obj.id){
+		return obj.id	
+	}else{
+		return obj.name
+	}
+	
+}
+
+function eventappendmethod(objevent,methodstr){
+	var oldProc = objevent.toString()
+	if (oldProc.indexOf("anonymous()") > 0)
+	{
+	oldProc = oldProc.substring(oldProc.indexOf("{") + 1, oldProc.lastIndexOf("}")) + "; ";
+	}
+
+	oldProc += methodstr;
+
+	return oldProc
+	//objevent = new Function (methodstr);
+	
+	
+		
+}
+
+
+
+function getElementPos(e) {
+
+	var l = 0;
+	var t  = 0;
+	//var w = intval(e.style.width);
+	//var h = intval(e.style.height);
+	//var wb = e.offsetWidth;
+	//var hb = e.offsetHeight;
+	while (e.offsetParent){
+	    l += e.offsetLeft + (e.currentStyle?intval(e.currentStyle.borderLeftWidth):0);
+	    t += e.offsetTop  + (e.currentStyle?intval(e.currentStyle.borderTopWidth):0);
+	    e = e.offsetParent;
+	}
+	l += e.offsetLeft + (e.currentStyle?intval(e.currentStyle.borderLeftWidth):0);
+	t  += e.offsetTop  + (e.currentStyle?intval(e.currentStyle.borderTopWidth):0);
+	//return {x:l, y:t, w:w, h:h, wb:wb, hb:hb}; 
+	return {x:l, y:t}; 
+}
+function intval(v) {     v = parseInt(v);     return isNaN(v) ? 0 : v; }
+
+
+
+
+
+
+

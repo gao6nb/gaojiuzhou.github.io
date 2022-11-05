@@ -1,0 +1,384 @@
+*{
+	margin:0;
+	padding:0;
+	line-height:150%;
+}
+
+a,a:visited,a:link {
+	color: #2f76a2;
+	font-family: "宋体", Arial;
+	font-size: 12px;
+	font-style: normal;
+	text-decoration: none;
+}
+
+.cellselect{
+	width:100%
+}
+
+a:hover {
+	color: #FF9900;
+}
+
+body {
+	color: #333;
+	font-family: "宋体", Arial;
+	font-size: 12px;
+	text-align: center;
+	background-repeat: repeat;
+}
+
+p{
+	font-size: 12px;	
+}
+
+#top{
+	float: none;
+	width: 100%;
+	height: 100%;
+	border-top-color: #27709B;
+	border-right-color: #27709B;
+	border-bottom-color: #27709B;
+	border-left-color: #27709B;
+}
+
+/*  页面美观头样式 */
+#pageHeadDivStyle {
+	background-repeat: repeat-x;
+	height: 102px;
+	background-image: url(../image/bj1.jpg);
+	width: 100%;
+}
+
+/* 页面美观头背景样式 */
+#pageHeadBackGroundDivStyle {
+	background-image: url(../image/bj2.jpg);
+	background-repeat: repeat-x;
+
+	width: 100%;
+}
+
+#pageFootDivStyle{
+	color: #333;
+	font-family: "宋体", Arial;
+	font-size: 12px;
+	text-align: center;
+}
+
+/* 注释样式 */
+.annotationStyle {
+color:#990000
+}
+
+/* 表格用背景 */
+.bg {
+	padding-right: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
+/* 大标题 样式 带上下边框线 */
+.bt {
+	font-family: "黑体";
+	font-size: 20px;
+	color: #327aa6;
+	background-image: url(../image/btbj.jpg);
+	background-repeat: repeat-x;
+	height: 46px;
+	padding-top: 10px;
+	width: 100%;
+	text-align: center;
+}
+
+/* 子标题的样式 */
+.subtitle {
+	font-family: "宋体";
+	font-size: 14px;
+	color: #006699;
+	font-weight: bold;
+	text-indent: 0px;
+}
+
+
+/* 按钮样式 */
+.inputbuttontype {
+	PADDING-RIGHT: 2px;
+	PADDING-LEFT: 2px;
+	FONT-SIZE: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#d8f2ff, EndColorStr=#f7fbff);
+	CURSOR: hand;
+	COLOR: black;
+	width: 80px;
+	margin-right: 20px;
+	vertical-align: middle;
+	height: 22px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	border: 1px solid #94c9e4;
+}
+/* 按钮样式 */
+button {
+	PADDING-RIGHT: 2px;
+	PADDING-LEFT: 2px;
+	FONT-SIZE: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#d8f2ff, EndColorStr=#f7fbff);
+	CURSOR: hand;
+	COLOR: black;
+	width: 80px;
+	margin-right: 20px;
+	vertical-align: middle;
+	height: 22px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	border: 1px solid #94c9e4;
+}
+.singlebutton {
+	PADDING-RIGHT: 2px;
+	PADDING-LEFT: 2px;
+	FONT-SIZE: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#d8f2ff, EndColorStr=#f7fbff);
+	CURSOR: hand;
+	COLOR: black;
+	width: 80px;
+	vertical-align: middle;
+	height: 22px;
+	margin-top: 3px;
+	margin-right: 0px;
+	margin-bottom: 3px;
+	border: 1px solid #94c9e4;
+}
+
+.bigbutton{
+	PADDING-RIGHT: 2px;
+	PADDING-LEFT: 2px;
+	FONT-SIZE: 12px;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#d8f2ff, EndColorStr=#f7fbff);
+	CURSOR: hand;
+	COLOR: black;
+
+	margin-right: 20px;
+	vertical-align: middle;
+	height: 22px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	border: 1px solid #94c9e4;
+
+}
+
+/* 文本输入域样式 */
+
+
+.inputtextreadonly{
+	width:99.9%;
+	border:"0px";
+	height:"25px";
+	padding-left: 1px;		
+	word-break: break-all;		
+
+}
+
+.inputtexttype{
+	width:99.9%;
+	border:"1px solid #7f9db5";
+	height:"25px";
+	padding-left: 1px;		
+	word-break: break-all;
+	
+		
+}
+.inputtexttypedefaultwidth{
+	
+	border:"1px solid #7f9db5";
+	height:"25px";
+	padding-left: 1px;		
+	word-break: break-all;		
+}
+.inputfiletype{
+	
+	border:"1px solid #7f9db5";
+	height:"22px";
+	padding-left: 1px;		
+	word-break: break-all;	
+	vertical-align: middle;	
+}
+.inputtexttypedefaultwidthreadonly{
+	
+
+
+	border:"0px";
+	height:"25px";
+	padding-left: 1px;		
+	word-break: break-all;			
+}
+.inputothertype{
+	width:"";
+	border:"0px";
+	height:"";
+	padding-left: 1px;		
+	word-break: break-all;		
+} 
+ 
+ 
+
+/* 大文本输入域样式 */
+textarea {
+	width: 100%;
+	border:1px solid #7f9db5;
+	word-break: break-all;	
+	line-height:1.5;
+}
+
+/* 右对齐的 文本输入域样式 */
+.textfieldRight {
+	text-align:right;
+	width: 99.9%;
+	height:25px;
+	padding-right: 3px;
+	border:1px solid #7f9db5;
+}
+
+/* 右对齐的 只读文本输入域样式 */
+.textfieldRightReadOnly {
+	text-align:right;
+	width: 99%;
+	height:25px;
+	padding-right: 3px;
+	border:0px;
+}
+/* 居中 只读文本输入域样式 */
+.textfieldCenterReadOnly {
+	text-align:center;
+	width: 99%;
+	height:25px;
+	padding-right: 3px;
+	border:0px;
+}
+/* 内容表格  样式 */
+.btable{
+	border-collapse:collapse;
+
+    word-break: break-all;
+	
+	table-layout:fixed;
+}
+
+.btable caption {
+	font-size:12px;
+}
+
+/* 内容表格 中TD单元格 样式 */
+.btable td{
+	font-size:12px;
+	border-collapse:collapse;
+	border:1px solid #b1daef;
+	text-align: left;
+	line-height:2;
+	height:auto;
+	padding: 3px;
+}
+
+/* 内容表格 中TD单元格背景 样式 */
+/* 问题$$$$$$$$$$$$$$$$$ 会被 .btable td 样式覆盖 */
+.theadbg {
+	background-color: #d8f2ff;
+}
+
+
+
+/* 没有表格边框等样式的表格 样式 主要用于注释性语句(有颜色)*/
+.notable td {
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	font-size:12px;
+	text-align: left;
+	color: #990000;
+}
+
+/* 没有表格边框等样式的表格 样式 表格内文字无颜色*/
+.nobordertable td {
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	font-size:12px;
+	text-align: left;
+}
+
+/* 浮动表格的 样式 */
+.uptable {
+	width:1100px;
+	font-family: "";
+	padding: 2px;
+	border: 1px none #red;
+}
+
+/* 浮动表格的TD单元格 样式 */
+.uptable td {
+	border: 1px dashed orange;
+	text-align: center;
+}
+
+
+/* 提示信息 样式 */
+.tooltip {
+	border: 1px solid #7F9DB9;
+	background-color: #ECF8FF;
+	padding: 5px;
+	position:absolute;
+	visibility: hidden;
+	z-index:100;
+}
+
+/* 装载中 样式 */
+.loading {
+	border: 1px solid #FF6600;
+	height: auto;
+	text-align: center;
+	width: 600px;
+	display:none;
+	z-index:100;
+	font-size: 12px;
+	padding: 5px;
+	font-weight: bold;
+	color: #FF0000;
+	background-color: #FFFFCC;
+}
+
+/* 弹出大文本 样式 */
+.bigtextcontainer{
+	border: 1px solid #7F9DB9;
+	height: 30px;
+	text-align: center;
+	background-color: #ECF8FF;
+	width: 240px;
+	display:none;
+	position:absolute;
+	z-index:100;
+	font-size: 12px;
+	padding: 5px;	
+}
+
+/* 提示信息的滤镜效果 样式 */
+.tooltip_trans_msg{
+    filter:alpha(opacity=100,enabled=1) revealTrans(duration=.1,transition=9) blendtrans(duration=.1);
+}
+
+/* 提示信息中 注意字样的样式 */
+.tooltip_text_red{
+	color:#FF0000;
+	font-style:italic;
+	font-weight:bold;
+}
+
+/*对于div中文字超出规定宽度后以......表示 样式*/
+.textoverflowhidden{overflow: hidden; text-overflow:ellipsis}
